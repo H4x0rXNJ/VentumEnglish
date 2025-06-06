@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8827e8db-df98-4bee-8419-b114f5c6af72" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/app/api/auth/[...nextauth]/route.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/api/auth/forgot-password/route.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/api/auth/reset-password/route.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/api/invoices/[id]/route.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/api/logout/route.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/api/send-mail/route.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/api/sign-in/route.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/api/sign-up/route.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/api/users/[id]/route.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/api/users/toggle-lock/route.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/api/verify-email/route.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/components/authentication/animated-alert.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/components/authentication/forgot-password.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/components/authentication/guards.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/components/authentication/not-found-user-message.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/components/authentication/reset-password.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/components/authentication/signin-form.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/components/authentication/signup-form.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/components/authentication/use-logout.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/components/authentication/use-sign-in.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/components/authentication/use-sign-up.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/components/icons/icons.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/components/password-error-list.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/components/slidebar/app-sidebar.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/components/slidebar/chart-area-interactive.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/components/slidebar/data-table.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/components/slidebar/nav-documents.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/components/slidebar/nav-main.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/components/slidebar/nav-secondary.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/components/slidebar/nav-user.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/components/slidebar/section-cards.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/components/slidebar/site-header.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/components/slidebar/slidebar-wrapper.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/dashboard/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/encode-password.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/forgot-password/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/public/dragon.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/public/girl.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/public/icon.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/public/song.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/reset-password/[token]/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/sign-in/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/sign-up/alert-animations.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/sign-up/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/test/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/users/delete-dialog.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/users/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/users/simple-delete.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/users/toggle-user-status.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/users/users-table.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/verify-email/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/verify-error/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/verify-success/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/constants/errors.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/auth.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/config.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/db.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/prisma.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/validation.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/test.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/globals.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/file.svg" beforeDir="false" afterPath="$PROJECT_DIR$/app/public/file.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/globe.svg" beforeDir="false" afterPath="$PROJECT_DIR$/app/public/globe.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/next.svg" beforeDir="false" afterPath="$PROJECT_DIR$/app/public/next.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/vercel.svg" beforeDir="false" afterPath="$PROJECT_DIR$/app/public/vercel.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/window.svg" beforeDir="false" afterPath="$PROJECT_DIR$/app/public/window.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FormatOnSaveOptions">
+    <option name="myRunOnSave" value="false" />
+    <option name="myAllFileTypesSelected" value="true" />
+    <option name="mySelectedFileTypes">
+      <set />
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/app/dashboard/page.tsx" root0="SKIP_HIGHLIGHTING" />
+  </component>
+  <component name="PackageJsonUpdateNotifier">
+    <dismissed value="$PROJECT_DIR$/package.json" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="2xoMPhYTWyUXo1pvWpZIgkrx938" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;js.debugger.nextJs.config.created.client&quot;: &quot;true&quot;,
+    &quot;js.debugger.nextJs.config.created.server&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/claire/WebstormProjects/Zentra/app/reset-password&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.Next.js: server-side.executor&quot;: &quot;Run&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/claire/WebstormProjects/Zentra/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
+    ]
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/reset-password" />
+      <recent name="$PROJECT_DIR$/app/public" />
+      <recent name="$PROJECT_DIR$/app/sign-up" />
+      <recent name="$PROJECT_DIR$/app" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/reset-password/[token]" />
+      <recent name="$PROJECT_DIR$/app/api/auth" />
+      <recent name="$PROJECT_DIR$/app/api" />
+      <recent name="$PROJECT_DIR$/app/verify-error" />
+      <recent name="$PROJECT_DIR$/app/users" />
+    </key>
+  </component>
+  <component name="RunManager" selected="npm.Next.js: server-side">
+    <configuration name="Next.js: debug client-side" type="JavascriptDebugType" uri="http://localhost:3000/">
+      <method v="2" />
+    </configuration>
+    <configuration name="Next.js: server-side" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="dev" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-WS-251.25410.117" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8827e8db-df98-4bee-8419-b114f5c6af72" name="Changes" comment="" />
+      <created>1748599951748</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1748599951748</updated>
+      <workItem from="1748599953127" duration="224000" />
+      <workItem from="1748600186649" duration="224000" />
+      <workItem from="1748600421674" duration="883000" />
+      <workItem from="1748601321767" duration="125000" />
+      <workItem from="1748601463995" duration="2017000" />
+      <workItem from="1748603501301" duration="67045000" />
+      <workItem from="1748794558337" duration="13006000" />
+      <workItem from="1748849822575" duration="73000" />
+      <workItem from="1748849898672" duration="23344000" />
+      <workItem from="1748941152220" duration="314000" />
+      <workItem from="1748941567842" duration="163000" />
+      <workItem from="1748941754400" duration="27000" />
+      <workItem from="1748941794079" duration="708000" />
+      <workItem from="1748942527584" duration="64000" />
+      <workItem from="1748942604727" duration="1496000" />
+      <workItem from="1748953595381" duration="25378000" />
+      <workItem from="1749027223085" duration="62944000" />
+      <workItem from="1749194780831" duration="179000" />
+      <workItem from="1749194964177" duration="11707000" />
+      <workItem from="1749212777688" duration="128000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
