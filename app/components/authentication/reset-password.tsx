@@ -9,6 +9,9 @@ import {Label} from "@/components/ui/label";
 import {Loader2} from "lucide-react";
 import {Validation} from "@/lib/validation";
 import {PasswordErrorList} from "../password-error-list";
+import {PiHandEye} from "react-icons/pi";
+import {FaRegEyeSlash} from "react-icons/fa";
+import {ERRORS_PASSWORD_MESSAGE} from "@/constants/errors";
 
 interface ResetPasswordFormProps {
     token: string;
@@ -18,7 +21,10 @@ export function ResetPasswordForm({token}: ResetPasswordFormProps) {
     const [newPassword, setNewPassword] = useState("");
     const [repeatNewPassword, setRepeatNewPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const [isViewNewPassword, setIsViewNewPassword] = useState(false);
+    const [isViewRepeatPassword, setIsViewRepeatPassword] = useState(false);
     const router = useRouter();
+
 
     async function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
@@ -26,12 +32,14 @@ export function ResetPasswordForm({token}: ResetPasswordFormProps) {
         const repeatPasswordError = Validation.validatePasswordMatch(newPassword, repeatNewPassword);
         if (repeatPasswordError) {
             toast.error(repeatPasswordError);
+            setIsLoading(false);
             return;
         }
 
         const passwordErrors = Validation.validatePassword(newPassword);
         if (passwordErrors.length > 0) {
             toast.error(<PasswordErrorList errors={passwordErrors}/>);
+            setIsLoading(false);
             return;
         }
         setIsLoading(true);
@@ -54,46 +62,64 @@ export function ResetPasswordForm({token}: ResetPasswordFormProps) {
             }
         } catch {
             toast.error("Something went wrong. Please try again.");
+        } finally {
+            setTimeout(() => {
+                setIsLoading(false);
+            }, 1500)
         }
-        setTimeout(() => {
-            setIsLoading(false);
-        }, 1500)
     }
 
     return (
         <div className="flex flex-col gap-6 max-w-md mx-auto">
             <form onSubmit={handleSubmit} className="flex flex-col gap-6">
                 <div className="flex flex-col items-center gap-2">
-                    <h1 className="text-xl font-bold">Please enter your new Password</h1>
+                    <h1 className="text-xl font-bold">Create a strong new password</h1>
                 </div>
-
+                <p className="text-sm text-gray-500">{ERRORS_PASSWORD_MESSAGE}</p>
                 <div className="flex flex-col gap-6">
-                    <div className="grid gap-3">
+                    <div className="relative grid gap-3">
                         <Label htmlFor="password">Your new password</Label>
-                        <Input
-                            id="newPassword"
-                            name="newPassword"
-                            type="password"
-                            placeholder="••••••••"
-                            value={newPassword}
-                            onChange={(e) => setNewPassword(e.target.value)}
-                        />
+                        <div className="relative">
+                            <Input
+                                id="newPassword"
+                                name="newPassword"
+                                type={isViewNewPassword ? "text" : "password"}
+                                placeholder="••••••••"
+                                value={newPassword}
+                                onChange={(e) => setNewPassword(e.target.value)}
+                            />
+                            {newPassword && (
+                                <div
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-zinc-900 transition-opacity duration-200"
+                                    onClick={() => setIsViewNewPassword((prev) => !prev)}>
+                                    {isViewNewPassword ? <PiHandEye size={20}/> : <FaRegEyeSlash size={20}/>}
+                                </div>
+                            )}
+                        </div>
                     </div>
 
-                    <div className="grid gap-3">
-                        <Label htmlFor="confirmPassword">Repeat new password</Label>
+
+                    <Label htmlFor="confirmPassword">Repeat new password</Label>
+                    <div className="grid gap-3 relative">
                         <Input
                             id="repeatNewPassword"
                             name="repeatNewPassword"
-                            type="password"
+                            type={isViewRepeatPassword ? "text" : "password"}
                             placeholder="••••••••"
                             value={repeatNewPassword}
                             onChange={(e) => setRepeatNewPassword(e.target.value)}
                         />
+
+                        {repeatNewPassword && (
+                            <div
+                                className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-zinc-900 transition-opacity duration-200"
+                                onClick={() => setIsViewRepeatPassword((prev) => !prev)}>
+                                {isViewRepeatPassword ? <PiHandEye size={20}/> : <FaRegEyeSlash size={20}/>}
+                            </div>
+                        )}
                     </div>
 
-                    <Button type="submit" className="w-full relative"
-                            disabled={isLoading || !newPassword || !repeatNewPassword}>
+                    <Button type="submit" className="w-full relative" disabled={isLoading || !newPassword || !repeatNewPassword}>
                         Change Password
                         {isLoading && (
                             <Loader2

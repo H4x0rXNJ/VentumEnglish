@@ -22,5 +22,7 @@ export const ERRORS_PASSWORD= {
     NO_LETTER: "Your password must contain at least one letter.",
     NO_SPECIAL_CHAR: "Your password must contain at least one special character.",
     TOO_SHORT: "Your password must be longer than 8 characters.",
-    NOT_MATCH: "Passwords do not match.",
+    NOT_MATCH: "The passwords you entered do not match.",
 } as const;
+
+export const ERRORS_PASSWORD_MESSAGE = "Password must be at least 8 characters long, include a letter (e.g. A, b), a special character (e.g. !, @, #), and must match the confirmation.";

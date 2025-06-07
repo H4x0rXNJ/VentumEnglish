@@ -6,9 +6,7 @@ export async function getUserByEmail(email: string) {
 
     return prisma.users.findUnique({
         where: { email },
-        include: { users_roles: true },
     });
-
 }
 
 export async function getAllUsers() {

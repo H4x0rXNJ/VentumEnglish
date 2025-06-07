@@ -14,7 +14,8 @@ import {signIn} from "next-auth/react";
 import {GoogleIcon, FacebookIcon, GitHubIcon} from "@/app/components/icons/icons";
 import {ERROR_CODES} from "@/constants/errors";
 import {NoUserFoundMessage} from "@/app/components/authentication/not-found-user-message";
-import {Eye, EyeClosed} from "phosphor-react";
+import {PiHandEye} from "react-icons/pi";
+import { FaRegEyeSlash} from "react-icons/fa";
 
 export function LoginForm({
                               className,
@@ -55,10 +56,9 @@ export function LoginForm({
                 toast.error(message);
             }
         }
-
         setTimeout(() => {
             setIsLoading(false);
-        }, 1500);
+        }, 500);
     }
 
     return (
@@ -119,7 +119,7 @@ export function LoginForm({
                                 className="absolute right-3 top-[52%] -translate-y-1/2 cursor-pointer text-zinc-900 transition-opacity duration-200"
                                 onClick={() => setIsView((prev) => !prev)}
                             >
-                                {isView ? <EyeClosed size={18} /> : <Eye size={18} />}
+                                {isView ? <PiHandEye size={20} /> : <FaRegEyeSlash size={20} />}
                             </div>
                         )}
                     </div>

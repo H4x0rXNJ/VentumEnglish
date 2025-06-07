@@ -12,7 +12,10 @@ import * as yup from "yup";
 import {Validation} from "@/lib/validation";
 import {PasswordErrorList} from "@/app/components/password-error-list";
 import {EmailInUseNotice} from "@/app/components/authentication/not-found-user-message";
-import {Eye, EyeClosed} from "phosphor-react";
+import {ERROR_CODES} from "@/constants/errors";
+import {GoogleIcon} from "@/app/components/icons/icons";
+import {PiHandEye} from "react-icons/pi";
+import {FaRegEyeSlash} from "react-icons/fa";
 
 const emailSchema = yup
     .string()
@@ -36,20 +39,28 @@ export function RegisterForm({
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
+
         try {
             emailSchema.validateSync(email);
         } catch (error) {
             toast.error((error as yup.ValidationError).message);
             return;
         }
+        setIsLoading(true)
+
+        const emailInUse = await checkEmailExists(email);
+        if (emailInUse) {
+            toast.error(EmailInUseNotice());
+            setIsLoading(false);
+            return;
+        }
 
         const passwordErrors = Validation.validatePassword(password);
         if (passwordErrors.length > 0) {
             toast.error(<PasswordErrorList errors={passwordErrors}/>);
+            setIsLoading(false);
             return;
         }
-
-        setIsLoading(true);
 
         try {
             const result: SignUpResult = await signUp(email, password);
@@ -57,16 +68,11 @@ export function RegisterForm({
                 toast.success(result.message);
                 setEmail("");
                 setPassword("");
-                setTimeout(() => {
-                    setIsLoading(false);
-                }, 1000)
-            } else {
-                toast.error(EmailInUseNotice());
-                setIsLoading(false);
             }
         } catch {
             toast.error("Something went wrong. Please try again.");
-            setIsLoading(false);
+        } finally {
+            setTimeout(() => setIsLoading(false), 200);
         }
     }
 
@@ -75,32 +81,23 @@ export function RegisterForm({
             <div className="flex flex-col items-center gap-2 text-center">
                 <h1 className="text-2xl font-bold">Create an account</h1>
             </div>
-            <Button variant="outline" className="w-full flex items-center justify-center relative">
-                <svg
-                    viewBox="0 0 533.5 544.3">
-                    <path
-                        d="M533.5 278.4c0-18.9-1.5-37-4.3-54.7H272v103.7h147.4c-6.3 34-25.5 62.8-54.4 82v68h87.9c51.4-47.3 81.6-117.1 81.6-199z"
-                        fill="#4285F4"
-                    />
-                    <path
-                        d="M272 544.3c73.5 0 135.3-24.3 180.3-65.7l-87.9-68c-24.3 16.4-55.4 26-92.4 26-71 0-131-47.9-152.6-112.4h-89.5v70.9c44.5 88.1 135.6 149.2 242.1 149.2z"
-                        fill="#34A853"
-                    />
-                    <path
-                        d="M119.4 324.5c-10.4-30.9-10.4-64.4 0-95.3v-70.9h-89.5c-37.3 73.7-37.3 161.9 0 235.6l89.5-69.4z"
-                        fill="#FBBC05"
-                    />
-                    <path
-                        d="M272 107.7c39.9 0 75.6 13.7 103.8 40.3l77.8-77.8C402 24.9 344.1 0 272 0 165.4 0 74.3 61.1 29.8 149.2l89.5 69.4c21.6-64.5 81.6-112.4 152.7-112.4z"
-                        fill="#EA4335"
-                    />
-                </svg>
-                Sign up with Google
-            </Button>
+            <div className="flex flex-col gap-2">
+                <Button variant="outline" className="w-full flex items-center justify-center relative">
+                    <GoogleIcon />
+                    Sign up with Google
+                </Button>
+                <div
+                    className="text-xs font-medium text-gray-500 text-center text-balance *:[a]:underline *:[a]:underline-offset-4 *:[a]:hover:text-primary"
+                >
+                    By clicking “Sign up with Google”, you agree to our{" "}
+                    <a href="#">Terms of Service,</a> and <a href="#">Privacy Policy,</a> and consent to receive updates, special offers, and promotional emails. I understand that I can opt out at any time.
+                </div>
             <div
-                className="after:border-border text-gray-400 relative text-center text-xs font-medium after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
+                className="mt-3 after:border-border text-gray-400 relative text-center text-xs font-medium after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
                 <span className="bg-background text-muted-foreground relative z-10 px-2">Or continue with email</span>
             </div>
+            </div>
+
 
             <div className="grid gap-6">
                 <div className="grid gap-3">
@@ -129,7 +126,7 @@ export function RegisterForm({
                             className="absolute right-3 top-[52%] -translate-y-1/2 cursor-pointer text-zinc-900 transition-opacity duration-200"
                             onClick={() => setIsView((prev) => !prev)}
                         >
-                            {isView ? <EyeClosed size={18}/> : <Eye size={18}/>}
+                            {isView ? <PiHandEye size={20} /> : <FaRegEyeSlash size={20} />}
                         </div>
                     )}
                 </div>
@@ -155,4 +152,20 @@ export function RegisterForm({
             </div>
         </form>
     )
+}
+
+export async function checkEmailExists(email: string): Promise<boolean> {
+    const res = await fetch('/api/auth/check-email', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email}),
+    });
+
+    if (!res.ok) {
+        const data = await res.json();
+        if (data.errorCode === ERROR_CODES.EMAIL_ALREADY_USE) {
+            return true;
+        }
+    }
+    return false;
 }

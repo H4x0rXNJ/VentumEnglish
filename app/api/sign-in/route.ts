@@ -69,11 +69,8 @@ export async function POST(req: Request) {
         const {email, password} = await req.json();
 
         validateInput(email, password);
-
         const user = await findUserOrThrow(email);
-
         checkUserEnabled(user);
-
         await verifyPasswordOrThrow(password, user.password);
 
         const token = createToken(email);
@@ -81,8 +78,6 @@ export async function POST(req: Request) {
         return createResponse(token, email);
 
     } catch (error: unknown) {
-        console.error(error);
-
         if (isApiError(error)) {
             return NextResponse.json(
                 {message: error.message, errorCode: error.errorCode},

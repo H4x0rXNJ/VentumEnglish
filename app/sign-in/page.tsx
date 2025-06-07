@@ -1,4 +1,4 @@
-import { GalleryVerticalEnd } from "lucide-react"
+import {GalleryVerticalEnd} from "lucide-react"
 import Image from "next/image"
 import placeholder from "@/app/public/dragon.jpg"
 import {LoginForm} from "@/app/components/authentication/signin-form"
@@ -9,9 +9,7 @@ import {getTitle} from "@/lib/config";
 export default async function LoginPage() {
     const currentUser = await getCurrentUser();
 
-    if (currentUser) {
-        redirect("/dashboard");
-    }
+    if (currentUser) redirect("/dashboard");
 
     const pageTitle = getTitle();
 
@@ -20,15 +18,16 @@ export default async function LoginPage() {
             <div className="flex flex-col gap-4 p-6 md:p-10">
                 <div className="flex justify-center gap-2 md:justify-start">
                     <a href="#" className="flex items-center gap-2 font-medium">
-                        <div className="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-md">
-                            <GalleryVerticalEnd className="size-4" />
+                        <div
+                            className="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-md">
+                            <GalleryVerticalEnd className="size-4"/>
                         </div>
                         {pageTitle}
                     </a>
                 </div>
                 <div className="flex flex-1 items-center justify-center">
                     <div className="w-full max-w-xs">
-                        <LoginForm />
+                        <LoginForm/>
                     </div>
                 </div>
             </div>

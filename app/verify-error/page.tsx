@@ -6,15 +6,17 @@ import { SmileyXEyes} from "phosphor-react";
 
 export default function VerifyErrorPage() {
     return (
-        <div className="min-h-screen flex flex-col justify-center items-center font-bold bg-gray-50 px-4 text-center">
-            <p className="text-xl font-bold text-black-500 mb-4 flex items-center gap-2">
-                <SmileyXEyes size={50}/> The verification code is invalid or has expired. Please try again.
+        <div className="min-h-screen flex flex-col justify-center items-center font-sans bg-gray-50 px-6 text-center">
+            <p className="text-xl font-medium text-gray-700 mb-6 flex items-center gap-3 leading-relaxed">
+                <SmileyXEyes size={50} />
+                The verification code is invalid or has expired. Please try again.
             </p>
-            <Button>
-                <Link href="/sign-up" className="w-full block">
+            <Button className="w-full max-w-xs">
+                <Link href="/sign-up" className="block w-full">
                     Sign up
                 </Link>
             </Button>
         </div>
+
     );
 }

@@ -49,7 +49,7 @@ const buttonStyle = `
   margin: 0 0 0.5rem 0;
 `;
 
-export async function sendResetPasswordEmail(to: string, token: string) {
+export function sendResetPasswordEmail(to: string, token: string) {
     const resetLink = `${baseUrl}/reset-password/${token}`;
     const htmlContent = `
     <div style="${baseStyle}">
@@ -78,12 +78,12 @@ export async function sendResetPasswordEmail(to: string, token: string) {
         subject: "Reset your password for VenTum",
         html: htmlContent,
     };
-
-    await transporter.sendMail(mailOptions);
+    transporter.sendMail(mailOptions).catch(err => {
+        console.error("Failed to send reset password email:", err);
+    });
 }
 
-
-export async function sendVerificationEmail(to: string, code: string) {
+export function sendVerificationEmail(to: string, code: string) {
     const verifyLink = `${baseUrl}/api/verify-email?code=${code}`;
     const htmlContent = `
       <div style="${baseStyle}">
@@ -111,6 +111,7 @@ export async function sendVerificationEmail(to: string, code: string) {
         subject: "Verify your email for VenTum",
         html: htmlContent,
     };
-    await transporter.sendMail(mailOptions);
-}
+    transporter.sendMail(mailOptions).catch(err => {
+        console.error("Failed to send verify email:", err);
+    });}
 

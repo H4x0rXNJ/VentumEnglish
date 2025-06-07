@@ -9,13 +9,12 @@ import {
 } from "@/components/ui/sidebar"
 import React from "react";
 import {getAllUsers} from "@/lib/db";
-import { redirect } from "next/navigation";
+import {redirect} from "next/navigation";
 
 export default async function AdminPage() {
     const currentUser = await getCurrentUser();
-    if (!currentUser) {
-        redirect("/sign-in");
-    }
+    if (!currentUser) redirect("/sign-in");
+
     const users = await getAllUsers();
     return (
         <>

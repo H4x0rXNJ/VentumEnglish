@@ -1,6 +1,7 @@
-import { useRouter } from "next/navigation";
+"use client";
+import {useRouter} from "next/navigation";
 
-export const logoutRequest = () => {
+export const useLogoutRequest = () => {
     const router = useRouter();
 
     const handleLogout = async () => {
@@ -11,7 +12,7 @@ export const logoutRequest = () => {
             });
 
             if (response.ok) {
-                router.push("/sign-in?logout=success");
+                router.replace("/sign-in?logout=success");
             } else {
                 console.error("Logout failed");
             }

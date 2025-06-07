@@ -18,7 +18,7 @@ export function ForgotPasswordForm({
                                        className,
                                        ...props
                                    }: React.ComponentProps<"div">) {
-    const [email, setEmail] = useState('');
+    const [email, setEmail] = useState("");
     const [isLoading, setIsLoading] = useState(false)
 
     async function handleSubmit(e: React.FormEvent) {
@@ -40,7 +40,7 @@ export function ForgotPasswordForm({
         } finally {
             setTimeout(() => {
                 setIsLoading(false);
-            }, 1500);
+            },500);
         }
     }
 
