@@ -1,25 +1,27 @@
 "use client";
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 
-export const useLogoutRequest = () => {
-    const router = useRouter();
-
-    const handleLogout = async () => {
-        try {
-            const response = await fetch("/api/logout", {
-                method: "POST",
-                credentials: "include",
-            });
-
-            if (response.ok) {
-                router.replace("/sign-in?logout=success");
-            } else {
-                console.error("Logout failed");
-            }
-        } catch (error) {
-            console.error("Error during logout", error);
-        }
-    };
-
-    return { handleLogout };
+type UseLogoutRequestOptions = {
+  redirectTo?: string;
+  shouldRefresh?: boolean;
 };
+
+export function useLogoutRequest({
+  redirectTo,
+  shouldRefresh = true,
+}: UseLogoutRequestOptions = {}) {
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    try {
+      await fetch("/api/logout", { method: "POST" });
+
+      if (redirectTo) router.push(redirectTo);
+      else if (shouldRefresh) router.refresh();
+    } catch (err) {
+      console.error("Logout failed:", err);
+    }
+  };
+
+  return { handleLogout };
+}

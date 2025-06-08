@@ -1,12 +1,12 @@
 import nodemailer from "nodemailer";
 
-const baseUrl = process.env.PUBLIC_BASE_URL;
+const baseUrl = process.env.IP_PUBLIC_BASE_URL;
 const transporter = nodemailer.createTransport({
-    service: "Gmail",
-    auth: {
-        user: process.env.EMAIL_USERNAME,
-        pass: process.env.EMAIL_PASSWORD,
-    },
+  service: "Gmail",
+  auth: {
+    user: process.env.EMAIL_USERNAME,
+    pass: process.env.EMAIL_PASSWORD,
+  },
 });
 
 const baseStyle = `
@@ -50,8 +50,8 @@ const buttonStyle = `
 `;
 
 export function sendResetPasswordEmail(to: string, token: string) {
-    const resetLink = `${baseUrl}/reset-password/${token}`;
-    const htmlContent = `
+  const resetLink = `${baseUrl}/reset-password/${token}`;
+  const htmlContent = `
     <div style="${baseStyle}">
       <h3 style="${headingStyle}">Change your Password</h3>
       <p style="${paragraphStyle}">
@@ -72,20 +72,20 @@ export function sendResetPasswordEmail(to: string, token: string) {
     </div>
   `;
 
-    const mailOptions = {
-        from: '"VenTum" <no-reply@ventum.com>',
-        to,
-        subject: "Reset your password for VenTum",
-        html: htmlContent,
-    };
-    transporter.sendMail(mailOptions).catch(err => {
-        console.error("Failed to send reset password email:", err);
-    });
+  const mailOptions = {
+    from: '"VenTum" <no-reply@ventum.com>',
+    to,
+    subject: "Reset your password for VenTum",
+    html: htmlContent,
+  };
+  transporter.sendMail(mailOptions).catch((err) => {
+    console.error("Failed to send reset password email:", err);
+  });
 }
 
 export function sendVerificationEmail(to: string, code: string) {
-    const verifyLink = `${baseUrl}/api/verify-email?code=${code}`;
-    const htmlContent = `
+  const verifyLink = `${baseUrl}/api/verify-email?code=${code}`;
+  const htmlContent = `
       <div style="${baseStyle}">
         <h3 style="${headingStyle}">Verify your Email</h3>
         <p style="${paragraphStyle}">
@@ -105,13 +105,13 @@ export function sendVerificationEmail(to: string, code: string) {
         </p>
       </div>
     `;
-    const mailOptions = {
-        from: '"VenTum" <no-reply@ventum.com>',
-        to,
-        subject: "Verify your email for VenTum",
-        html: htmlContent,
-    };
-    transporter.sendMail(mailOptions).catch(err => {
-        console.error("Failed to send verify email:", err);
-    });}
-
+  const mailOptions = {
+    from: '"VenTum" <no-reply@ventum.com>',
+    to,
+    subject: "Verify your email for VenTum",
+    html: htmlContent,
+  };
+  transporter.sendMail(mailOptions).catch((err) => {
+    console.error("Failed to send verify email:", err);
+  });
+}

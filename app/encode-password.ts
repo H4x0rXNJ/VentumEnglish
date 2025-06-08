@@ -1,7 +1,5 @@
-import bcrypt from 'bcrypt';
+import bcrypt from "bcrypt";
 
-const rawPassword = 'password';
+const rawPassword = "password";
 
-bcrypt.hash(rawPassword, 10)
-    .then(console.log)
-    .catch(console.error);
+bcrypt.hash(rawPassword, 10).then(console.log).catch(console.error);

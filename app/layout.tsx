@@ -2,7 +2,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import React from "react";
 import Head from "next/head";
-import {Toaster} from "sonner";
+import { Toaster } from "sonner";
+import { ThemeProvider } from "next-themes";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,12 +16,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: 'Ventum Mastery',
-  description: 'English Fast as Ventum Mastery!',
-  icons:{
-    icon:'/public/icon.ico'
-  }
-}
+  title: "Ventum Mastery",
+  description: "English Fast as Ventum Mastery!",
+  icons: {
+    icon: "/public/icon.ico",
+  },
+};
 
 export default function RootLayout({
   children,
@@ -29,12 +30,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-    <body
+      <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
-        <Toaster position="top-center"/>
-    </body>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem={true}
+        >
+          {children}
+        </ThemeProvider>
+        <Toaster position="top-center" />
+      </body>
     </html>
   );
 }

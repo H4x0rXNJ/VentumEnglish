@@ -1,21 +1,23 @@
-import {NextResponse} from "next/server";
-import {ERROR_MESSAGES} from "@/constants/errors";
+import { NextResponse } from "next/server";
+import { ERROR_MESSAGES } from "@/constants/errors";
 
 export async function POST() {
-    const response = NextResponse.json({message: ERROR_MESSAGES.LOGOUT_SUCCESS});
+  const response = NextResponse.json({
+    message: ERROR_MESSAGES.LOGOUT_SUCCESS,
+  });
 
-    response.cookies.set("token", "", {
-        httpOnly: true,
-        path: "/",
-        expires: new Date(0),
-        sameSite: "lax",
-        secure: process.env.NODE_ENV === "production",
-    });
+  response.cookies.set("token", "", {
+    httpOnly: true,
+    path: "/",
+    expires: new Date(0),
+    sameSite: "lax",
+    secure: process.env.NODE_ENV === "production",
+  });
 
-    response.cookies.set("next-auth.session-token", "", {
-        path: "/",
-        expires: new Date(0),
-    });
+  response.cookies.set("next-auth.session-token", "", {
+    path: "/",
+    expires: new Date(0),
+  });
 
-    return response;
+  return response;
 }
