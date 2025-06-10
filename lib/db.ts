@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import { mapToUserDTO } from "@/app/mappers/user";
+import { mapToUserDTO } from "@/app/mappers/userMapper";
 
 export async function getUserByEmail(email: string) {
   if (!email) return null;

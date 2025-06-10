@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import UsersTable from "./users-table";
+import UsersTable from "@/app/components/admin/users/UsersTable";
 
 const prisma = new PrismaClient();
 

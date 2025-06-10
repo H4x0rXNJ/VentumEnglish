@@ -7,6 +7,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum auth_types {
+  DATABASE
+  GOOGLE
+  FACEBOOK
+  GITHUB
+}
+
 model invoice {
   id             Int     @id @default(autoincrement())
   invoice        String?
@@ -63,27 +70,27 @@ model roles {
 }
 
 model users {
-  id                                   BigInt                     @id @default(autoincrement())
-  account_non_locked                   Boolean                    @db.Bit(1)
-  address                              String?                    @db.VarChar(70)
-  authentication_type                  users_authentication_type?
-  created_on                           DateTime?                  @db.DateTime(6)
-  email                                String                     @unique @db.VarChar(255)
-  enabled                              Boolean                    @db.Bit(1)
+  id                                   BigInt        @id @default(autoincrement())
+  account_non_locked                   Boolean       @db.Bit(1)
+  address                              String?       @db.VarChar(70)
+  authentication_type                  AuthType      @default(DATABASE)
+  created_on                           DateTime?     @db.DateTime(6)
+  email                                String        @unique @db.VarChar(255)
+  enabled                              Boolean       @db.Bit(1)
   failed_attempt                       Int
-  last_otp_send                        DateTime?                  @db.DateTime(6)
-  lock_time                            DateTime?                  @db.DateTime(6)
-  name                                 String                     @db.VarChar(255)
-  otp                                  String?                    @db.VarChar(64)
-  otp_expiry_date                      DateTime?                  @db.DateTime(6)
-  password                             String                     @db.VarChar(255)
-  phone_number                         String?                    @db.VarChar(10)
-  photos                               String?                    @db.VarChar(64)
-  reset_password_token                 String?                    @db.VarChar(128)
-  reset_password_token_expiration_time DateTime?                  @db.DateTime(6)
-  reset_password_requested_at          DateTime?                  @db.DateTime(6)
-  updated_on                           DateTime?                  @db.DateTime(6)
-  verification_code                    String?                    @db.VarChar(128)
+  last_otp_send                        DateTime?     @db.DateTime(6)
+  lock_time                            DateTime?     @db.DateTime(6)
+  name                                 String        @db.VarChar(255)
+  otp                                  String?       @db.VarChar(64)
+  otp_expiry_date                      DateTime?     @db.DateTime(6)
+  password                             String        @db.VarChar(255)
+  phone_number                         String?       @db.VarChar(10)
+  photos                               String?       @db.VarChar(64)
+  reset_password_token                 String?       @db.VarChar(128)
+  reset_password_token_expiration_time DateTime?     @db.DateTime(6)
+  reset_password_requested_at          DateTime?     @db.DateTime(6)
+  updated_on                           DateTime?     @db.DateTime(6)
+  verification_code                    String?       @db.VarChar(128)
   posts                                posts[]
   users_roles                          users_roles[]
 }
@@ -96,13 +103,6 @@ model users_roles {
 
   @@id([user_id, role_id])
   @@index([role_id], map: "FKj6m8fwv7oqv74fcehir1a9ffy")
-}
-
-
-enum users_authentication_type {
-  DATABASE
-  FACEBOOK
-  GOOGLE
 }
 
 enum guests_status {

@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import { getServerSession } from "next-auth/next";
 import { JWT_SECRET } from "@/env";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { AuthType } from "@/app/types/authTypes";
 
 export async function getCurrentUser() {
   const cookieStore = await cookies();
@@ -15,7 +16,7 @@ async function getUserFromToken(token?: string) {
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
     if (typeof decoded !== "object" || decoded === null) return null;
-    return decoded as { name?: string; email?: string; avatar?: string };
+    return decoded;
   } catch {
     return null;
   }
@@ -25,12 +26,8 @@ async function getUserFromSession() {
   try {
     const session = await getServerSession(authOptions);
     if (!session?.user) return null;
-    const { name, email, image: avatar } = session.user;
-    return {
-      name: name ?? undefined,
-      email: email ?? undefined,
-      avatar: avatar ?? undefined,
-    };
+    const { name, email, image: avatar, authType } = session.user;
+    return { name, email, avatar, authType };
   } catch {
     return null;
   }

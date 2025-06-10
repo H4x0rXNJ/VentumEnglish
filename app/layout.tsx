@@ -19,7 +19,7 @@ export const metadata = {
   title: "Ventum Mastery",
   description: "English Fast as Ventum Mastery!",
   icons: {
-    icon: "/public/icon.ico",
+    icon: "/icon.ico",
   },
 };
 

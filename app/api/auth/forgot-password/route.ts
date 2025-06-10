@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { sendResetPasswordEmail } from "../../send-mail/route";
-import { generateHexCode } from "@/app/api/sign-up/route";
+import { sendResetPasswordEmail } from "@/app/api/auth/send-mail/route";
+import { generateHexCode } from "@/app/api/auth/sign-up/route";
 import { ERROR_CODES, RATE_LIMIT_WAIT } from "@/constants/errors";
 
 const TOKEN_EXPIRY_MS = 15 * 60 * 1000;

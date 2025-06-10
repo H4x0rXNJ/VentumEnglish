@@ -3,6 +3,17 @@ import GoogleProvider from "next-auth/providers/google";
 import { prisma } from "@/lib/prisma";
 import FacebookProvider from "next-auth/providers/facebook";
 import GithubProvider from "next-auth/providers/github";
+import { AuthType } from "@/app/types/authTypes";
+
+const providerToAuthType: Record<string, AuthType> = {
+  credentials: AuthType.DATABASE,
+  google: AuthType.GOOGLE,
+  facebook: AuthType.FACEBOOK,
+};
+
+export function getAuthTypeFromProvider(provider?: string): AuthType {
+  return providerToAuthType[provider ?? "credentials"] ?? AuthType.DATABASE;
+}
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -23,29 +34,38 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
   },
   debug: process.env.NODE_ENV === "development",
+
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, account }) {
       if (user?.email) {
+        console.log("AuthType:", AuthType);
+        const authType = getAuthTypeFromProvider(account?.provider);
+
+        const now = new Date();
+
+        const userFields = {
+          name: user.name || "",
+          email: user.email,
+          authentication_type: authType,
+          updated_on: now,
+        };
         try {
           const dbUser = await prisma.users.upsert({
             where: { email: user.email },
             update: {
-              name: user.name || "",
-              email: user.email,
-              updated_on: new Date(),
+              ...userFields,
             },
             create: {
-              email: user.email,
-              name: user.name || "",
+              ...userFields,
               password: "",
               enabled: true,
               account_non_locked: true,
               failed_attempt: 0,
-              created_on: new Date(),
-              updated_on: new Date(),
+              created_on: now,
             },
           });
 
+          token.authType = authType;
           token.id = dbUser.id.toString();
           token.email = dbUser.email;
           token.name = dbUser.name;
