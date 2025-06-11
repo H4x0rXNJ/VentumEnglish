@@ -1,11 +1,16 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
-export async function DELETE(_: Request, context: { params: { id: string } }) {
-  const { id } = context.params;
+type ID = Promise<{ id: string }>;
+
+export async function DELETE(_request: Request, { params }: { params: ID }) {
+  const { id } = await params;
   const userId = Number(id);
-  if (isNaN(userId))
+
+  if (isNaN(userId)) {
     return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
+  }
+
   try {
     await prisma.users.delete({ where: { id: userId } });
     return NextResponse.json({ message: "Deleted successfully" });

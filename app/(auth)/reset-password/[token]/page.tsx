@@ -2,14 +2,15 @@ import { ResetPasswordForm } from "@/app/components/authentication/ResetPassword
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 
-type PageProps = {
-  params: {
-    token: string;
-  };
-};
+type PageProps = Promise<{ token: string }>;
 
-export default async function ResetPasswordPage({ params }: PageProps) {
-  const token = params.token;
+export default async function ResetPasswordPage({
+  params,
+}: {
+  params: PageProps;
+}) {
+  const { token } = await params;
+
   const user = token
     ? await prisma.users.findFirst({
         where: {

@@ -5,8 +5,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8827e8db-df98-4bee-8419-b114f5c6af72" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/app/types/next-auth.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/utils/generateCode.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/authOptions.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/errors.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/mailer.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/(auth)/reset-password/[token]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(auth)/reset-password/[token]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(home)/lessons/[slug]/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(home)/test/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/auth/[...nextauth]/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/auth/[...nextauth]/route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/auth/forgot-password/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/auth/forgot-password/route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/auth/send-mail/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/auth/send-mail/route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/auth/sign-in/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/auth/sign-in/route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/auth/sign-up/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/auth/sign-up/route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/users/[id]/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/users/[id]/route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/components/admin/slidebar/AppSidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/admin/slidebar/AppSidebar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/components/admin/slidebar/NavUser.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/admin/slidebar/NavUser.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/components/authentication/useLogoutRequest.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/authentication/useLogoutRequest.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/components/navbar/NavMenu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/navbar/NavMenu.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/types/authTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/types/authTypes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/auth.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/next.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/next.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +70,7 @@
     "git-widget-placeholder": "main",
     "js.debugger.nextJs.config.created.client": "true",
     "js.debugger.nextJs.config.created.server": "true",
-    "last_opened_file_path": "/Users/claire/WebstormProjects/Zentra/public/avatars",
+    "last_opened_file_path": "/Users/claire/WebstormProjects/Zentra/app/types",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -69,18 +92,18 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/types" />
       <recent name="$PROJECT_DIR$/public/avatars" />
       <recent name="$PROJECT_DIR$/app/public/avatars" />
       <recent name="$PROJECT_DIR$/app/public/audio" />
       <recent name="$PROJECT_DIR$/app/public" />
-      <recent name="$PROJECT_DIR$/app/reset-password" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/(auth)" />
+      <recent name="$PROJECT_DIR$/app/(home)" />
+      <recent name="$PROJECT_DIR$/app/utils" />
+      <recent name="$PROJECT_DIR$/app" />
       <recent name="$PROJECT_DIR$/app/components/course" />
-      <recent name="$PROJECT_DIR$/app/components/admin" />
-      <recent name="$PROJECT_DIR$/app/components/users" />
-      <recent name="$PROJECT_DIR$/app/components/authentication" />
-      <recent name="$PROJECT_DIR$/app/components/icons" />
     </key>
   </component>
   <component name="RunManager" selected="npm.Next.js: server-side">
@@ -138,7 +161,7 @@
       <workItem from="1749372790190" duration="57000" />
       <workItem from="1749372851615" duration="62485000" />
       <workItem from="1749553316754" duration="771000" />
-      <workItem from="1749554092804" duration="14025000" />
+      <workItem from="1749554092804" duration="25188000" />
     </task>
     <servers />
   </component>

@@ -17,6 +17,7 @@ export function useLogoutRequest({
 
   const handleLogout = async () => {
     try {
+      console.log(authType);
       if (authType === "DATABASE") {
         await fetch("/api/auth/logout", { method: "POST" });
       } else {

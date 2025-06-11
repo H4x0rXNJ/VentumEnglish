@@ -2,18 +2,14 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcrypt";
 import { z } from "zod";
-import { randomBytes } from "crypto";
-import { sendVerificationEmail } from "@/app/api/auth/send-mail/route";
+import { sendVerificationEmail } from "@/lib/mailer";
 import { ERROR_CODES, ERROR_MESSAGES } from "@/constants/errors";
+import { generateHexCode } from "@/app/utils/generateCode";
 
 const registerSchema = z.object({
   email: z.string().email(),
   password: z.string().min(6),
 });
-
-export function generateHexCode() {
-  return randomBytes(32).toString("hex");
-}
 
 let guestRoleId: bigint | null = null;
 
@@ -79,7 +75,7 @@ export async function POST(req: Request) {
       return newUser;
     });
 
-    await sendVerificationEmail(email, code);
+    sendVerificationEmail(email, code);
 
     return NextResponse.json({
       message: `We have sent an email to ${user.email}, please click the link included to verify your email address.`,

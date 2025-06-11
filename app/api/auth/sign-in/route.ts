@@ -5,17 +5,7 @@ import { getUserByEmail } from "@/lib/db";
 import { ERROR_CODES, ERROR_MESSAGES } from "@/constants/errors";
 import { prisma } from "@/lib/prisma";
 import { AuthType } from "@/app/types/authTypes";
-
-export class ApiError extends Error {
-  status: number;
-  errorCode: string;
-
-  constructor(status: number, errorCode: string, message?: string) {
-    super(message ?? errorCode);
-    this.status = status;
-    this.errorCode = errorCode;
-  }
-}
+import { ApiError } from "@/lib/errors";
 
 function validateInput(email?: string, password?: string): void {
   if (!email || !password) {
@@ -54,7 +44,7 @@ type JwtPayload = {
   authType: AuthType;
 };
 
-export function createToken(payload: JwtPayload) {
+function createToken(payload: JwtPayload) {
   return jwt.sign(payload, process.env.JWT_SECRET!, {
     expiresIn: "7d",
   });

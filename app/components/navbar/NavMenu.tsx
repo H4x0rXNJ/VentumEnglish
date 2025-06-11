@@ -85,6 +85,7 @@ export function getAvatarUrl(avatar?: string | null): string {
 
 export function NavMenu({ user }: { user: User | null }) {
   const { handleLogout } = useLogoutRequest({ authType: user?.authType });
+  console.log(user);
   return (
     <NavigationMenu viewport={false}>
       <NavigationMenuList>
@@ -235,7 +236,7 @@ export function NavMenu({ user }: { user: User | null }) {
                 <NavigationMenuContent>
                   <ul className="grid w-[150px] gap-2 list-none">
                     <li>
-                      <NavigationMenuLink>
+                      <NavigationMenuLink asChild>
                         <Link
                           href="#"
                           className=" flex flex-row items-center gap-2"

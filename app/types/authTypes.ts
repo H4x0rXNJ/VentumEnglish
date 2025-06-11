@@ -10,3 +10,10 @@ export type User = {
   name?: string | null;
   authType: AuthType;
 };
+
+export interface JwtPayload {
+  name?: string;
+  email?: string;
+  avatar?: string;
+  authType?: AuthType;
+}
