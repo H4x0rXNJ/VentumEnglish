@@ -6,6 +6,9 @@ import { prisma } from "@/lib/prisma";
 import { getAuthTypeFromProvider } from "@/lib/auth";
 import { AuthType } from "@/app/types/authTypes";
 
+if (!process.env.JWT_SECRET) {
+  throw new Error("Missing JWT_SECRET environment variable");
+}
 export const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
@@ -71,5 +74,5 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
   },
-  secret: process.env.NEXT_AUTH_SECRET,
+  secret: process.env.JWT_SECRET,
 };
