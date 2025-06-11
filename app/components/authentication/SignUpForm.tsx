@@ -164,7 +164,7 @@ export function SignUpForm({
                   className="w-full relative"
                   disabled={isLoading || !email || !password}
                 >
-                  Sign in
+                  Sign up
                   {isLoading && (
                     <Loader2
                       className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 animate-spin h-6 w-6"
