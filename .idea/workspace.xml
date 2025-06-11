@@ -5,93 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8827e8db-df98-4bee-8419-b114f5c6af72" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/(auth)/layout.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/(home)/layout.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/(home)/lessons/[slug]/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/(home)/test/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/api/auth/me/route.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/components/NotificationBell.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/components/ToggleHeartButton.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/components/course/Hero.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/components/course/features/FeaturesGrid.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/types/authTypes.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/avatars/dinosaur.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/avatars/hacker.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/music/english-test.mp3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/auth/[...nextauth]/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/auth/[...nextauth]/route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/auth/forgot-password/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/auth/forgot-password/route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/logout/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/auth/logout/route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/send-mail/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/auth/send-mail/route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/sign-in/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/auth/sign-in/route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/sign-up/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/auth/sign-up/route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/verify-email/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/auth/verify-email/route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/authentication/animated-alert.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/authentication/forgot-password.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/authentication/ForgotPasswordForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/authentication/forogot-password-request.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/authentication/authForgotPassword.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/authentication/guards.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/authentication/not-found-user-message.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/authentication/NoUserFoundMessage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/authentication/reset-password.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/authentication/ResetPasswordForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/authentication/sign-in-request.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/authentication/authSignIn.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/authentication/sign-up-request.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/authentication/authSignUp.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/authentication/signin-form.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/authentication/SignlnForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/authentication/signup-form.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/authentication/SignUpForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/authentication/use-logout-request.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/authentication/useLogoutRequest.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/custom.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/icons/CustomIcon.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/features/features-grid.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/footer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/Footer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/icons/icons.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/icons/Icon.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/mode-toggle.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/ModeToggle.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/navbar/logo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/navbar/Logo.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/navbar/nav-menu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/navbar/NavMenu.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/navbar/navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/navbar/Navbar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/navbar/navigation-sheet.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/navbar/NavigationSheet.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/password-error-list.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/authentication/PasswordErrorList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/slidebar/app-sidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/admin/slidebar/AppSidebar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/slidebar/chart-area-interactive.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/slidebar/data-table.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/admin/slidebar/DataTable.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/slidebar/nav-documents.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/admin/slidebar/NavDocuments.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/slidebar/nav-main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/admin/slidebar/NavMain.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/slidebar/nav-secondary.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/admin/slidebar/NavSecondary.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/slidebar/nav-user.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/admin/slidebar/NavUser.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/slidebar/section-cards.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/admin/slidebar/SectionCards.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/slidebar/site-header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/admin/slidebar/SiteHeader.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/slidebar/slidebar-wrapper.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/theme-provider.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/dashboard/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(admin)/dashboard/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/forgot-password/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(auth)/forgot-password/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/mappers/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/mappers/userMapper.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/public/dragon.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/public/dragon.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/public/file.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/file.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/public/girl.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/public/globe.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/globe.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/public/icon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/public/icon.ico" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/public/next.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/next.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/public/song.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/song.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/public/vercel.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/vercel.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/public/window.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/window.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/reset-password/[token]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(auth)/reset-password/[token]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/sign-in/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(auth)/sign-in/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/sign-up/alert-animations.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/(auth)/sign-up/alert-animations.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/sign-up/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(auth)/sign-up/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/users/delete-dialog.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/admin/users/DeleteDialog.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/users/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/users/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/users/simple-delete.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/admin/users/simple.delete.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/users/toggle-user-status.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/admin/users/updateUserEnabledStatus.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/users/users-table.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/admin/users/UsersTable.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ventum/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(home)/ventum/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/verify-email/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(auth)/verify-email/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/verify-error/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(auth)/verify-error/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/verify-success/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(auth)/verify-success/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/auth.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/db.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/db.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/prisma.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/prisma.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/next.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/next.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/schema.prisma" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -223,7 +138,7 @@
       <workItem from="1749372790190" duration="57000" />
       <workItem from="1749372851615" duration="62485000" />
       <workItem from="1749553316754" duration="771000" />
-      <workItem from="1749554092804" duration="11807000" />
+      <workItem from="1749554092804" duration="12948000" />
     </task>
     <servers />
   </component>

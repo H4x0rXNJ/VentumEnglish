@@ -7,11 +7,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum auth_types {
+enum AuthType {
   DATABASE
   GOOGLE
   FACEBOOK
-  GITHUB
 }
 
 model invoice {
