@@ -1,36 +1,27 @@
 import { GalleryVerticalEnd } from "lucide-react";
-import Image from "next/image";
-import placeholder from "@/public/dragon.jpg";
-import { RegisterForm } from "@/app/components/authentication/SignUpForm";
-import "@/app/(auth)/sign-up/alert-animations.css";
-import { getTitle } from "@/lib/config";
 
-export default function RegisterPage() {
+import { getCurrentUser } from "@/lib/auth";
+import { redirect } from "next/navigation";
+import { getTitle } from "@/lib/config";
+import { SignUpForm } from "@/app/components/authentication/SignUpForm";
+
+export default async function SignUpPage() {
+  const currentUser = await getCurrentUser();
+
+  if (currentUser) redirect("/");
+
   const pageTitle = getTitle();
+
   return (
-    <div className="grid min-h-svh lg:grid-cols-2">
-      <div className="flex flex-col gap-4 p-6 md:p-10">
-        <div className="flex justify-center gap-2 md:justify-start">
-          <a href="#" className="flex items-center gap-2 font-medium">
-            <div className="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-md">
-              <GalleryVerticalEnd className="size-4" />
-            </div>
-            {pageTitle}
-          </a>
-        </div>
-        <div className="flex flex-1 items-center justify-center">
-          <div className="w-full max-w-xs">
-            <RegisterForm />
+    <div className="bg-background flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
+      <div className="flex w-full max-w-sm flex-col gap-6">
+        <a href="#" className="flex items-center gap-2 self-center font-medium">
+          <div className="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-md">
+            <GalleryVerticalEnd className="size-4" />
           </div>
-        </div>
-      </div>
-      <div className="bg-muted relative hidden lg:block">
-        <Image
-          src={placeholder}
-          alt="Image"
-          fill
-          className="object-cover dark:brightness-[0.2] dark:grayscale"
-        />
+          {pageTitle}
+        </a>
+        <SignUpForm />
       </div>
     </div>
   );

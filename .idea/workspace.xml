@@ -5,16 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8827e8db-df98-4bee-8419-b114f5c6af72" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/(ventum)/layout.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/(ventum)/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/components/authentication/SignInForm.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/(auth)/sign-in/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(auth)/sign-in/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(home)/layout.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(home)/ventum/page.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/authentication/NoUserFoundMessage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/authentication/NoUserFoundMessage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/authentication/SignlnForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/authentication/SignlnForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(auth)/sign-up/alert-animations.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(auth)/sign-up/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(auth)/sign-up/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/components/authentication/SignUpForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/authentication/SignUpForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/components/authentication/SignlnForm.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/components/icons/Icon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/icons/Icon.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,11 +82,11 @@
       <recent name="$PROJECT_DIR$/app/public/avatars" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/components/authentication" />
+      <recent name="$PROJECT_DIR$/app/(auth)/sign-in" />
       <recent name="$PROJECT_DIR$/app/(ventum)" />
       <recent name="$PROJECT_DIR$/app/(auth)" />
       <recent name="$PROJECT_DIR$/app/(home)" />
-      <recent name="$PROJECT_DIR$/app/utils" />
-      <recent name="$PROJECT_DIR$/app" />
     </key>
   </component>
   <component name="RunManager" selected="npm.Next.js: server-side">
@@ -146,7 +144,7 @@
       <workItem from="1749372790190" duration="57000" />
       <workItem from="1749372851615" duration="62485000" />
       <workItem from="1749553316754" duration="771000" />
-      <workItem from="1749554092804" duration="35707000" />
+      <workItem from="1749554092804" duration="38715000" />
     </task>
     <servers />
   </component>

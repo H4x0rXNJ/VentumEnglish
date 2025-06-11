@@ -10,85 +10,69 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { signIn } from "next-auth/react";
-import { GoogleIcon } from "@/app/components/icons/Icon";
+import { FacebookIcon, GoogleIcon } from "@/app/components/icons/Icon";
 import Link from "next/link";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
+import { authSignIn } from "@/app/components/authentication/authSignIn";
 import { ERROR_CODES } from "@/constants/errors";
-import { EmailInUseNotice } from "@/app/components/authentication/NoUserFoundMessage";
+import { NoUserFoundMessage } from "@/app/components/authentication/NoUserFoundMessage";
 import { PiHandEye } from "react-icons/pi";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { Loader2 } from "lucide-react";
-import * as yup from "yup";
-import { Validation } from "@/lib/validation";
-import { authSignUp } from "@/app/components/authentication/authSignUp";
-import { PasswordErrorList } from "@/app/components/authentication/PasswordErrorList";
 
-const emailSchema = yup
-  .string()
-  .email("Invalid email format")
-  .required("Email is required");
-
-interface SignUpResult {
-  success: boolean;
-  error?: string;
-  message?: string;
-}
-
-export function SignUpForm({
+export function SignInForm({
   className,
   ...props
 }: React.ComponentProps<"form">) {
+  const searchParams = useSearchParams();
+  const logoutSuccess = searchParams.get("logout") === "success";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const toastShown = useRef(false);
+  const pathname = usePathname();
   const [isView, setIsView] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (logoutSuccess && !toastShown.current) {
+      toastShown.current = true;
+      toast.success("Logout successful!");
+      router.replace(pathname, { scroll: false });
+    }
+  }, [logoutSuccess, pathname, router]);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-
-    try {
-      emailSchema.validateSync(email);
-    } catch (error) {
-      toast.error((error as yup.ValidationError).message);
-      return;
-    }
     setIsLoading(true);
 
-    const emailInUse = await checkEmailExists(email);
-    if (emailInUse) {
-      toast.error(EmailInUseNotice());
-      setIsLoading(false);
-      return;
-    }
-
-    const passwordErrors = Validation.validatePassword(password);
-    if (passwordErrors.length > 0) {
-      toast.error(<PasswordErrorList errors={passwordErrors} />);
-      setIsLoading(false);
-      return;
-    }
-
-    try {
-      const result: SignUpResult = await authSignUp(email, password);
-      if (result.success) {
-        toast.success(result.message);
-        setEmail("");
-        setPassword("");
+    const { success, message, errorCode } = await authSignIn(email, password);
+    if (success) {
+      router.push("/");
+    } else {
+      if (errorCode === ERROR_CODES.USER_NOT_FOUND) {
+        toast(<NoUserFoundMessage />);
+      } else {
+        toast.error(message);
       }
-    } catch {
-      toast.error("Something went wrong. Please try again.");
-    } finally {
-      setTimeout(() => setIsLoading(false), 200);
     }
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 500);
   }
 
   return (
     <div className="flex flex-col gap-6">
       <Card>
         <CardHeader className="text-center">
-          <CardTitle className="text-xl">Create a new account</CardTitle>
+          <CardTitle className="text-xl">Welcome back</CardTitle>
+          <CardDescription>
+            Sign in to unlock your personalized learning journey with Google or
+            Facebook.
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <form
@@ -100,26 +84,30 @@ export function SignUpForm({
               <div className="flex flex-col gap-4">
                 <Button
                   type="button"
+                  onClick={() => signIn("facebook", { callbackUrl: "/" })}
+                  variant="outline"
+                  className=" cursor-pointer w-full flex items-center justify-center"
+                >
+                  <FacebookIcon />
+                  Login with Facebook
+                </Button>
+
+                <Button
+                  type="button"
                   onClick={() => signIn("google", { callbackUrl: "/" })}
                   variant="outline"
                   className=" cursor-pointer w-full flex items-center justify-center relative"
                 >
                   <GoogleIcon />
-                  Sign up with Google
+                  Login with Google
                 </Button>
-                <div className="text-xs font-medium text-gray-500 text-center text-balance *:[a]:underline *:[a]:underline-offset-4 *:[a]:hover:text-primary">
-                  By clicking “Sign up with Google”, you agree to our{" "}
-                  <a href="#">Terms of Service,</a> and{" "}
-                  <a href="#">Privacy Policy,</a> and consent to receive
-                  updates, special offers, and promotional emails. I understand
-                  that I can opt out at any time.
-                </div>
               </div>
               <div className="after:border-border text-gray-400 relative text-center text-xs font-medium after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
                 <span className="bg-background text-muted-foreground relative z-10 px-2">
                   Or continue with email
                 </span>
               </div>
+
               <div className="grid gap-6">
                 <div className="grid gap-3">
                   <Label htmlFor="email">Email</Label>
@@ -135,6 +123,12 @@ export function SignUpForm({
                 <div className="grid gap-3">
                   <div className="flex items-center">
                     <Label htmlFor="password">Password</Label>
+                    <Link
+                      href="forgot-password"
+                      className="ml-auto text-xs font-medium white underline-offset-4 hover:underline"
+                    >
+                      Forgot password
+                    </Link>
                   </div>
                   <div className="relative">
                     <Input
@@ -175,8 +169,8 @@ export function SignUpForm({
               </div>
               <div className="text-center text-sm">
                 Don&apos;t have an account?{" "}
-                <Link href="/sign-in" className="underline underline-offset-4">
-                  Sign in
+                <Link href="/sign-up" className="underline underline-offset-4">
+                  Sign up
                 </Link>
               </div>
             </div>
@@ -189,20 +183,4 @@ export function SignUpForm({
       </div>
     </div>
   );
-}
-
-export async function checkEmailExists(email: string): Promise<boolean> {
-  const res = await fetch("/api/auth/check-email", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email }),
-  });
-
-  if (!res.ok) {
-    const data = await res.json();
-    if (data.errorCode === ERROR_CODES.EMAIL_ALREADY_USE) {
-      return true;
-    }
-  }
-  return false;
 }
