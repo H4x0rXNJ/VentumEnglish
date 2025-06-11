@@ -2,7 +2,6 @@ import Footer from "@/app/components/Footer";
 import Navbar from "@/app/components/navbar/Navbar";
 import { getCurrentUser } from "@/lib/auth";
 import React from "react";
-import Hero from "@/app/components/course/Hero";
 
 export default async function MainLayout({
   children,

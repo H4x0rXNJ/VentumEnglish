@@ -10,12 +10,11 @@ import { authSignIn } from "@/app/components/authentication/authSignIn";
 import "@/app/(auth)/sign-up/alert-animations.css";
 import { toast } from "sonner";
 import { signIn } from "next-auth/react";
-import { GoogleIcon, FacebookIcon } from "@/app/components/icons/Icon";
+import { FacebookIcon, GoogleIcon } from "@/app/components/icons/Icon";
 import { ERROR_CODES } from "@/constants/errors";
 import { NoUserFoundMessage } from "@/app/components/authentication/NoUserFoundMessage";
 import { PiHandEye } from "react-icons/pi";
 import { FaRegEyeSlash } from "react-icons/fa";
-import { Spinner } from "phosphor-react";
 import { Loader2 } from "lucide-react";
 
 export function LoginForm({
