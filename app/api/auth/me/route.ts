@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 import { prisma } from "@/lib/prisma";
-import { JWT_SECRET } from "@/env";
+import * as process from "node:process";
 
 export async function GET(req: NextRequest) {
   try {
@@ -10,7 +10,7 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const payload = jwt.verify(token, JWT_SECRET) as {
+    const payload = jwt.verify(token, process.env.JWT_SECRET!) as {
       email: string;
     };
 

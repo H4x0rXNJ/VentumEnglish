@@ -4,8 +4,6 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/authOptions";
 import { AuthType, JwtPayload, User } from "@/app/types/authTypes";
 
-const JWT_SECRET = process.env.JWT_SECRET;
-
 export async function getCurrentUser(): Promise<User | null> {
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value;
@@ -15,7 +13,7 @@ export async function getCurrentUser(): Promise<User | null> {
 async function getUserFromToken(token?: string): Promise<User | null> {
   if (!token) return null;
   try {
-    const decoded = jwt.verify(token, JWT_SECRET) as JwtPayload;
+    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as JwtPayload;
 
     const currentUser: User = {
       name: decoded.name ?? "",
