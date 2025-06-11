@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 import { z } from "zod";
 import { sendVerificationEmail } from "@/lib/mailer";
 import { ERROR_CODES, ERROR_MESSAGES } from "@/constants/errors";
-import { generateHexCode } from "@/app/utils/generateCode";
+import { generateHexCode } from "@/app/utils/keyGenerate";
 
 const registerSchema = z.object({
   email: z.string().email(),

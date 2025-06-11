@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import * as process from "node:process";
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
@@ -30,6 +31,11 @@ export async function GET(req: Request) {
   });
 
   const response = NextResponse.redirect(new URL("/verify-success", req.url));
-  response.cookies.set("email_verified", "1", { maxAge: 60 });
+  response.cookies.set("email_verified", process.env.EMAIL_VERIFIED_SECRET!, {
+    maxAge: 60,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    path: "/",
+  });
   return response;
 }

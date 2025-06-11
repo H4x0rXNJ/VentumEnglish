@@ -84,7 +84,7 @@ export function sendResetPasswordEmail(to: string, token: string) {
 }
 
 export function sendVerificationEmail(to: string, code: string) {
-  const verifyLink = `${baseUrl}/api/verify-email?code=${code}`;
+  const verifyLink = `${baseUrl}/api/auth/verify-email?code=${code}`;
   const htmlContent = `
       <div style="${baseStyle}">
         <h3 style="${headingStyle}">Verify your Email</h3>

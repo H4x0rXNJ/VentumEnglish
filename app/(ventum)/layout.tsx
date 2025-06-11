@@ -1,6 +1,5 @@
 import "../globals.css";
 import React from "react";
-import { Toaster } from "sonner";
 import Navbar from "@/app/components/navbar/Navbar";
 import Footer from "@/app/components/Footer";
 import { getCurrentUser } from "@/lib/auth";
