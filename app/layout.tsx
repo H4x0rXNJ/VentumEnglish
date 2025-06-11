@@ -1,7 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import React from "react";
-import Head from "next/head";
 import { Toaster } from "sonner";
 import { ThemeProvider } from "next-themes";
 
