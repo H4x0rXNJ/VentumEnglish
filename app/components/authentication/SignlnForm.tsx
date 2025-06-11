@@ -37,7 +37,7 @@ export function LoginForm({
       toast.success("Logout successful!");
       router.replace(pathname, { scroll: false });
     }
-  }, [logoutSuccess]);
+  }, [logoutSuccess, pathname, router]);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
