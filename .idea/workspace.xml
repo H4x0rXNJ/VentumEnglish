@@ -5,19 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8827e8db-df98-4bee-8419-b114f5c6af72" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/components/authentication/VerifySuccess.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(auth)/verify-email/page.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(auth)/verify-success/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(auth)/verify-success/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(ventum)/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(ventum)/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/auth/forgot-password/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/auth/forgot-password/route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/auth/sign-up/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/auth/sign-up/route.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/api/auth/verify-email/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/auth/verify-email/route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/authentication/SignUpForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/authentication/SignUpForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/encode-password.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/encodePassword.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/utils/generateCode.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/utils/keyGenerate.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/mailer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/mailer.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -151,6 +139,7 @@
       <workItem from="1749553316754" duration="771000" />
       <workItem from="1749554092804" duration="43856000" />
       <workItem from="1749655784043" duration="1170000" />
+      <workItem from="1749656959350" duration="2892000" />
     </task>
     <servers />
   </component>

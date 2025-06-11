@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
 
-const baseUrl = process.env.PUBLIC_BASE_URL;
+const baseUrl = process.env.PUBLIC_DOMAIN_URL;
 const transporter = nodemailer.createTransport({
   service: "Gmail",
   auth: {
