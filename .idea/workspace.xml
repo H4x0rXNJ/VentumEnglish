@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8827e8db-df98-4bee-8419-b114f5c6af72" name="Changes" comment="" />
+    <list default="true" id="8827e8db-df98-4bee-8419-b114f5c6af72" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/app/api/users/route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/users/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/users/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/env.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/auth.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/mailer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/mailer.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -44,7 +51,7 @@
     "git-widget-placeholder": "main",
     "js.debugger.nextJs.config.created.client": "true",
     "js.debugger.nextJs.config.created.server": "true",
-    "last_opened_file_path": "/Users/claire/WebstormProjects/Zentra/app/types",
+    "last_opened_file_path": "/Users/claire/WebstormProjects/Zentra",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -66,11 +73,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/app/types" />
       <recent name="$PROJECT_DIR$/public/avatars" />
       <recent name="$PROJECT_DIR$/app/public/avatars" />
       <recent name="$PROJECT_DIR$/app/public/audio" />
-      <recent name="$PROJECT_DIR$/app/public" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/app/(auth)" />
@@ -135,7 +142,7 @@
       <workItem from="1749372790190" duration="57000" />
       <workItem from="1749372851615" duration="62485000" />
       <workItem from="1749553316754" duration="771000" />
-      <workItem from="1749554092804" duration="25499000" />
+      <workItem from="1749554092804" duration="31450000" />
     </task>
     <servers />
   </component>

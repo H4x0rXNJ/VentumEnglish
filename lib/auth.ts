@@ -1,9 +1,10 @@
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
 import { getServerSession } from "next-auth/next";
-import { JWT_SECRET } from "@/env";
 import { authOptions } from "@/lib/authOptions";
 import { AuthType, JwtPayload, User } from "@/app/types/authTypes";
+
+const JWT_SECRET = process.env.JWT_SECRET;
 
 export async function getCurrentUser(): Promise<User | null> {
   const cookieStore = await cookies();

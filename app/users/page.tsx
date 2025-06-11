@@ -1,9 +1,10 @@
-import { PrismaClient } from "@prisma/client";
 import UsersTable from "@/app/components/admin/users/UsersTable";
 
-const prisma = new PrismaClient();
-
 export default async function UsersPage() {
-  const invoices = await prisma.invoice.findMany();
+  const res = await fetch(`${process.env.PUBLIC_BASE_URL}/api/invoices`, {
+    cache: "no-store",
+  });
+  const invoices = await res.json();
+
   return <UsersTable invoices={invoices} />;
 }
