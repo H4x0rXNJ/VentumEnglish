@@ -9,7 +9,7 @@ import { getTitle } from "@/lib/config";
 export default async function LoginPage() {
   const currentUser = await getCurrentUser();
 
-  if (currentUser) redirect("/ventum");
+  if (currentUser) redirect("/");
 
   const pageTitle = getTitle();
 

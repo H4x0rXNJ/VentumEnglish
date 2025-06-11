@@ -1,5 +1,5 @@
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import "@/app/globals.css";
 import React from "react";
 import { Toaster } from "sonner";
 import { ThemeProvider } from "next-themes";
@@ -22,7 +22,7 @@ export const metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -32,13 +32,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem={true}
-        >
-          {children}
-        </ThemeProvider>
+        <div className="flex flex-col min-h-screen bg-background text-foreground">
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem={true}
+          >
+            <main className="flex-grow">{children}</main>
+          </ThemeProvider>
+        </div>
         <Toaster position="top-center" />
       </body>
     </html>

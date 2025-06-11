@@ -5,9 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8827e8db-df98-4bee-8419-b114f5c6af72" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/app/(ventum)/layout.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/(ventum)/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/auth/me/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/auth/me/route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/auth.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(auth)/sign-in/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(auth)/sign-in/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(home)/layout.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(home)/ventum/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/components/authentication/NoUserFoundMessage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/authentication/NoUserFoundMessage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/components/authentication/SignlnForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/authentication/SignlnForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/page.tsx" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +55,7 @@
     "git-widget-placeholder": "main",
     "js.debugger.nextJs.config.created.client": "true",
     "js.debugger.nextJs.config.created.server": "true",
-    "last_opened_file_path": "/Users/claire/WebstormProjects/Zentra",
+    "last_opened_file_path": "/Users/claire/WebstormProjects/Zentra/app",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -70,18 +77,18 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/app/types" />
       <recent name="$PROJECT_DIR$/public/avatars" />
       <recent name="$PROJECT_DIR$/app/public/avatars" />
-      <recent name="$PROJECT_DIR$/app/public/audio" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/(ventum)" />
       <recent name="$PROJECT_DIR$/app/(auth)" />
       <recent name="$PROJECT_DIR$/app/(home)" />
       <recent name="$PROJECT_DIR$/app/utils" />
       <recent name="$PROJECT_DIR$/app" />
-      <recent name="$PROJECT_DIR$/app/components/course" />
     </key>
   </component>
   <component name="RunManager" selected="npm.Next.js: server-side">
@@ -139,7 +146,7 @@
       <workItem from="1749372790190" duration="57000" />
       <workItem from="1749372851615" duration="62485000" />
       <workItem from="1749553316754" duration="771000" />
-      <workItem from="1749554092804" duration="32031000" />
+      <workItem from="1749554092804" duration="35707000" />
     </task>
     <servers />
   </component>

@@ -45,7 +45,7 @@ export function LoginForm({
 
     const { success, message, errorCode } = await authSignIn(email, password);
     if (success) {
-      router.push("/ventum");
+      router.push("/");
     } else {
       if (errorCode === ERROR_CODES.USER_NOT_FOUND) {
         toast(<NoUserFoundMessage />);
@@ -70,7 +70,7 @@ export function LoginForm({
 
       <Button
         type="button"
-        onClick={() => signIn("facebook", { callbackUrl: "/ventum" })}
+        onClick={() => signIn("facebook", { callbackUrl: "/" })}
         variant="outline"
         className=" cursor-pointer w-full flex items-center justify-center"
       >
@@ -80,7 +80,7 @@ export function LoginForm({
 
       <Button
         type="button"
-        onClick={() => signIn("google", { callbackUrl: "/ventum" })}
+        onClick={() => signIn("google", { callbackUrl: "/" })}
         variant="outline"
         className=" cursor-pointer w-full flex items-center justify-center relative"
       >

@@ -1,5 +1,5 @@
 import FeaturesGrid from "@/app/components/course/features/FeaturesGrid";
 
-export default async function VenTumHomePage() {
+export default function Home() {
   return <FeaturesGrid />;
 }

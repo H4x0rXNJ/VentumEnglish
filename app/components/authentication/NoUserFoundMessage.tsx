@@ -15,7 +15,7 @@ export function NoUserFoundMessage() {
         <Link
           onClick={handleToastDismiss}
           href="/forgot-password"
-          className="font-bold text-background underline ring-0 outline-gray-alpha-950 focus-visible:underline focus-visible:ring-1 focus-visible:ring-ring"
+          className="font-bold dark:text-white text-black underline ring-0 outline-gray-alpha-950 focus-visible:underline focus-visible:ring-1 focus-visible:ring-ring"
         >
           click here{" "}
         </Link>
@@ -23,7 +23,7 @@ export function NoUserFoundMessage() {
         <Link
           onClick={handleToastDismiss}
           href="/sign-up"
-          className="font-bold text-background underline ring-0 outline-gray-alpha-950 focus-visible:underline focus-visible:ring-1 focus-visible:ring-ring"
+          className="font-bold dark:text-white text-black underline ring-0 outline-gray-alpha-950 focus-visible:underline focus-visible:ring-1 focus-visible:ring-ring"
         >
           please sign up
         </Link>
