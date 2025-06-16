@@ -20,11 +20,11 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import Image from "next/image";
 import NotificationBell from "@/app/components/NotificationBell";
 import ToggleHeartButton from "@/app/components/ToggleHeartButton";
-import { ModeToggle } from "@/app/components/ModeToggle";
 import { useLogoutRequest } from "@/app/components/authentication/useLogoutRequest";
 import { CgProfile } from "react-icons/cg";
 import { SlSettings } from "react-icons/sl";
-import { User } from "@/app/types/authTypes"; // Import kiểu User
+import { User } from "@/app/types/authTypes";
+import { DarkModeToggle } from "@/app/components/DarkModeToggle";
 
 const components: { title: string; href: string; description: string }[] = [
   {
@@ -85,7 +85,6 @@ export function getAvatarUrl(avatar?: string | null): string {
 
 export function NavMenu({ user }: { user: User | null }) {
   const { handleLogout } = useLogoutRequest({ authType: user?.authType });
-  console.log(user);
   return (
     <NavigationMenu viewport={false}>
       <NavigationMenuList>
@@ -288,7 +287,8 @@ export function NavMenu({ user }: { user: User | null }) {
               </Link>
             </>
           )}
-          <ModeToggle />
+          {/*<ModeToggle />*/}
+          <DarkModeToggle />
         </div>
       </NavigationMenuList>
     </NavigationMenu>

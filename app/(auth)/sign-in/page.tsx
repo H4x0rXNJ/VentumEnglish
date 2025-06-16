@@ -4,8 +4,9 @@ import { SignInForm } from "@/app/components/authentication/SignInForm";
 import { getCurrentUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { getTitle } from "@/lib/config";
+import Link from "next/link";
 
-export default async function LoginPage() {
+export default async function SignInPage() {
   const currentUser = await getCurrentUser();
 
   if (currentUser) redirect("/");
@@ -19,7 +20,7 @@ export default async function LoginPage() {
           <div className="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-md">
             <GalleryVerticalEnd className="size-4" />
           </div>
-          {pageTitle}
+          <Link href="/">{pageTitle}</Link>
         </a>
         <SignInForm />
       </div>

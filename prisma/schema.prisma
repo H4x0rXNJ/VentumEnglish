@@ -13,53 +13,29 @@ enum AuthType {
   FACEBOOK
 }
 
-model invoice {
-  id             Int     @id @default(autoincrement())
-  invoice        String?
-  payment_status String?
-  payment_method String?
-  total_amount   Float
+model category {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  slug        String   @unique
+  order       Int
+  createdAt   DateTime @default(now())
+  lessons     lesson[]
 }
 
-model comments {
-  id         BigInt    @id @default(autoincrement())
-  content    String?   @db.LongText
-  created_on DateTime? @db.DateTime(6)
-  email      String    @db.VarChar(255)
-  name       String    @db.VarChar(255)
-  updated_on DateTime? @db.DateTime(6)
-  votes      Int
-  post_id    BigInt
-  posts      posts     @relation(fields: [post_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FKh4c7lvsc298whoyd4w9ta25cr")
+model lesson {
+  id                 Int      @id @default(autoincrement())
+  title              String
+  slug               String   @unique
+  content            String   @db.LongText
+  transcriptJsonPath String?
+  audioUrl           String?
+  duration           Float?
+  order              Int
+  createdAt          DateTime @default(now())
 
-  @@index([post_id], map: "FKh4c7lvsc298whoyd4w9ta25cr")
-}
-
-model guests {
-  id            BigInt         @id @default(autoincrement())
-  booking_date  DateTime?      @db.DateTime(6)
-  checkin_date  DateTime?      @db.DateTime(6)
-  checkout_date DateTime?      @db.DateTime(6)
-  name          String?        @db.VarChar(100)
-  photos        String?        @db.VarChar(64)
-  room_id       String?        @db.VarChar(20)
-  status        guests_status?
-}
-
-model posts {
-  id                BigInt     @id @default(autoincrement())
-  content           String     @db.TinyText
-  created_on        DateTime   @db.DateTime(6)
-  photos            String?    @db.VarChar(255)
-  short_description String?    @db.VarChar(255)
-  title             String     @db.VarChar(255)
-  updated_on        DateTime?  @db.DateTime(6)
-  url               String?    @db.VarChar(255)
-  created_by        BigInt
-  comments          comments[]
-  users             users      @relation(fields: [created_by], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK4s8wtgwpo1h8p5tsy9f04ybjg")
-
-  @@index([created_by], map: "FK4s8wtgwpo1h8p5tsy9f04ybjg")
+  categoryId Int
+  category   category @relation(fields: [categoryId], references: [id])
 }
 
 model roles {
@@ -90,7 +66,6 @@ model users {
   reset_password_requested_at          DateTime?     @db.DateTime(6)
   updated_on                           DateTime?     @db.DateTime(6)
   verification_code                    String?       @db.VarChar(128)
-  posts                                posts[]
   users_roles                          users_roles[]
 }
 
@@ -102,11 +77,4 @@ model users_roles {
 
   @@id([user_id, role_id])
   @@index([role_id], map: "FKj6m8fwv7oqv74fcehir1a9ffy")
-}
-
-enum guests_status {
-  ALL
-  BOOKED
-  CANCELLED
-  PENDING
 }

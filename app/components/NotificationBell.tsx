@@ -3,7 +3,7 @@ import { IoNotificationsOutline } from "react-icons/io5";
 
 export default function NotificationBell() {
   return (
-    <div className="relative group rounded-md hover:bg-purple-100 transition p-2 inline-flex items-center justify-center">
+    <div className="relative group rounded-md hover:bg-accent hover:text-accent-foreground transition p-2.5 inline-flex items-center justify-center">
       <IoNotificationsOutline
         size={18}
         className="stroke-black dark:stroke-white"

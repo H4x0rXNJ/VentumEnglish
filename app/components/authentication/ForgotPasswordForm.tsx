@@ -62,11 +62,7 @@ export function ForgotPasswordForm({
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            <Button
-              type="submit"
-              className="w-full relative"
-              disabled={isLoading || !email}
-            >
+            <Button type="submit" className="w-full relative" disabled={!email}>
               Continue
               {isLoading && (
                 <Loader2

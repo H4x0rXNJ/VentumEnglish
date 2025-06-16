@@ -7,6 +7,7 @@ import { ThemeProvider } from "next-themes";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
@@ -38,7 +39,7 @@ export default async function RootLayout({
             defaultTheme="system"
             enableSystem={true}
           >
-            <main className="flex-grow">{children}</main>
+            {children}
           </ThemeProvider>
         </div>
         <Toaster position="top-center" />

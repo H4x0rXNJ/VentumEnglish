@@ -133,7 +133,7 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
           <Button
             type="submit"
             className="w-full relative"
-            disabled={isLoading || !newPassword || !repeatNewPassword}
+            disabled={!newPassword || !repeatNewPassword}
           >
             Change Password
             {isLoading && (

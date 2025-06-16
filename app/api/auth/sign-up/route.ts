@@ -56,7 +56,7 @@ export async function POST(req: Request) {
         data: {
           email,
           password: hashedPassword,
-          name: "Guest",
+          name: "GUEST",
           enabled: false,
           verification_code: code,
           account_non_locked: true,

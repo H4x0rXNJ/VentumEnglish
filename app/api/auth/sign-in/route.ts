@@ -51,19 +51,19 @@ function createToken(payload: JwtPayload) {
 }
 
 function createResponse(token: string, email: string) {
-  const res = NextResponse.json(
+  const response = NextResponse.json(
     { message: `Welcome to ${email}`, token },
     { status: 200 },
   );
 
-  res.cookies.set("token", token, {
-    httpOnly: true,
+  response.cookies.set("token", token, {
     maxAge: 3600,
+    httpOnly: true,
     path: "/",
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",
   });
-  return res;
+  return response;
 }
 
 function isApiError(error: unknown): error is ApiError {

@@ -11,6 +11,103 @@ export function FacebookIcon() {
   );
 }
 
+interface RepeatWithTextProps extends React.SVGProps<SVGSVGElement> {
+  label?: string;
+}
+
+export function RepeatWithText({
+  label = "1",
+  onClick,
+  ...props
+}: RepeatWithTextProps) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="w-5 h-5 text-black dark:text-white cursor-pointer hover:opacity-80 transition-opacity"
+      onClick={onClick}
+      {...props}
+    >
+      <polyline points="17 2 21 6 17 10" />
+      <path d="M3 12V10a4 4 0 0 1 4-4h14" />
+      <polyline points="7 22 3 18 7 14" />
+      <path d="M21 14v2a4 4 0 0 1-4 4H3" />
+      <text
+        x="15"
+        y="15"
+        textAnchor="middle"
+        fontSize="6"
+        fill="currentColor"
+        dominantBaseline="middle"
+        fontFamily="Arial, sans-serif"
+        style={{ userSelect: "none" }}
+      >
+        {label}
+      </text>
+    </svg>
+  );
+}
+
+type RepeatIconProps = {
+  count?: number;
+  onClick?: () => void;
+};
+
+export function RepeatIcon({ count, onClick }: RepeatIconProps) {
+  return (
+    <div
+      className="relative cursor-pointer hover:scale-110 transition-transform duration-200"
+      onClick={onClick}
+    >
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="cursor-pointer"
+      >
+        <polyline points="17 2 21 6 17 10" />
+        <path d="M3 12V10a4 4 0 0 1 4-4h14" />
+        <polyline points="7 23 2 20 6 14" />
+        <path d="M21 14v2a4 4 0 0 1-4 4H3" />
+      </svg>
+      {count && count > 0 && (
+        <span className="absolute -top-1 -right-1 bg-black text-white text-xs rounded-full w-4 h-4 flex items-center justify-center font-medium">
+          {count}
+        </span>
+      )}
+    </div>
+  );
+}
+
+export function AdjustIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      className={props.className}
+      {...props}
+    >
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+      <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path>
+      <path d="M12 3l0 18"></path>
+      <path d="M12 9l4.65 -4.65"></path>
+      <path d="M12 14.3l7.37 -7.37"></path>
+      <path d="M12 19.6l8.85 -8.85"></path>
+    </svg>
+  );
+}
+
 export function GoogleIcon() {
   return (
     <svg viewBox="0 0 533.5 544.3">
