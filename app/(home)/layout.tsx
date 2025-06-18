@@ -1,17 +1,19 @@
-export const dynamic = "force-dynamic";
 import "../globals.css";
-import React from "react";
+import React, { cache } from "react";
 import Navbar from "@/app/components/navbar/Navbar";
 import Footer from "@/app/components/Footer";
 import { getCurrentUser } from "@/lib/auth";
-import Hero from "@/app/components/course/Hero";
+
+const getCachedCurrentUser = cache(getCurrentUser);
 
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const user = await getCurrentUser();
+  const user = await getCachedCurrentUser();
+
+  console.count("RootLayout Rendered");
 
   return (
     <>

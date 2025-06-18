@@ -1,6 +1,12 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { LogOut, Menu } from "lucide-react";
 import { Logo } from "./Logo";
 import Link from "next/link";
@@ -8,14 +14,25 @@ import { User } from "@/app/types/authTypes";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import Image from "next/image";
 import { getAvatarUrl, getFirstLetter } from "./NavMenu";
-import { useLogoutRequest } from "@/app/components/authentication/useLogoutRequest";
 import { CgProfile } from "react-icons/cg";
 import { SlSettings } from "react-icons/sl";
+import React, { useMemo } from "react";
 
-export const NavigationSheet = ({ user }: { user: User | null }) => {
-  const { handleLogout } = useLogoutRequest({ authType: user?.authType });
+const NavigationSheet = ({ user }: { user: User | null }) => {
+  console.count("NavigationSheet Rendered");
+  console.log("NavigationSheetComponent rendered");
 
-  console.log();
+  const userInfo = useMemo(() => {
+    if (!user) return null;
+
+    return {
+      avatar: getAvatarUrl(user.avatar),
+      firstLetter: getFirstLetter(user.name),
+      email: user.email,
+      name: user.name,
+    };
+  }, [user?.avatar, user?.name, user?.email]);
+
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -28,6 +45,11 @@ export const NavigationSheet = ({ user }: { user: User | null }) => {
         side="right"
         className="flex flex-col p-4 w-full sm:max-w-xs"
       >
+        <SheetTitle className="sr-only">Sidebar</SheetTitle>
+        <SheetDescription className="sr-only">
+          Contains user info and navigation links
+        </SheetDescription>
+
         <div className="mb-4">
           <Logo />
         </div>
@@ -36,15 +58,15 @@ export const NavigationSheet = ({ user }: { user: User | null }) => {
           <div className="flex items-center gap-3 mb-6">
             <Avatar className="w-10 h-10 rounded-full overflow-hidden shadow-md">
               <Image
-                src={getAvatarUrl(user?.avatar)}
+                src={getAvatarUrl(userInfo?.avatar)}
                 alt="Avatar"
                 width={40}
                 height={40}
                 className="w-full h-full object-cover"
               />
-              <AvatarFallback>{getFirstLetter(user?.name)}</AvatarFallback>
+              <AvatarFallback>{getFirstLetter(userInfo?.name)}</AvatarFallback>
             </Avatar>
-            <span className="font-semibold">{user?.email}</span>
+            <span className="font-semibold">{userInfo?.email}</span>
           </div>
         )}
 
@@ -61,7 +83,6 @@ export const NavigationSheet = ({ user }: { user: User | null }) => {
           </Link>
         </nav>
 
-        {/* User Options / Auth Actions */}
         <div className="mt-auto border-t pt-6 flex flex-col gap-4 text-sm">
           {user ? (
             <>
@@ -79,13 +100,13 @@ export const NavigationSheet = ({ user }: { user: User | null }) => {
                 <SlSettings size={20} />
                 Settings
               </Link>
-              <button
-                onClick={handleLogout}
-                className="flex items-center gap-3 text-red-500 hover:text-red-700 transition-colors"
-              >
-                <LogOut size={20} />
-                Logout
-              </button>
+              {/*<button*/}
+              {/*  onClick={handleLogout}*/}
+              {/*  className="flex items-center gap-3 text-red-500 hover:text-red-700 transition-colors"*/}
+              {/*>*/}
+              {/*  <LogOut size={20} />*/}
+              {/*  Logout*/}
+              {/*</button>*/}
             </>
           ) : (
             <>
@@ -102,3 +123,4 @@ export const NavigationSheet = ({ user }: { user: User | null }) => {
     </Sheet>
   );
 };
+export default React.memo(NavigationSheet);

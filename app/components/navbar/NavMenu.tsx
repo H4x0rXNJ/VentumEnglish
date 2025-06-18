@@ -25,6 +25,7 @@ import { CgProfile } from "react-icons/cg";
 import { SlSettings } from "react-icons/sl";
 import { User } from "@/app/types/authTypes";
 import { DarkModeToggle } from "@/app/components/DarkModeToggle";
+import { useMemo } from "react";
 
 const components: { title: string; href: string; description: string }[] = [
   {
@@ -83,8 +84,11 @@ export function getAvatarUrl(avatar?: string | null): string {
   return isExternal ? avatar : `${LOCAL_AVATAR_PREFIX}${avatar}`;
 }
 
-export function NavMenu({ user }: { user: User | null }) {
-  const { handleLogout } = useLogoutRequest({ authType: user?.authType });
+export const NavMenu = ({ user }: { user: User | null }) => {
+  console.count("NavMenu Rendered");
+
+  const authType = useMemo(() => user?.authType, [user?.authType]);
+  const { handleLogout } = useLogoutRequest({ authType });
   return (
     <NavigationMenu viewport={false}>
       <NavigationMenuList>
@@ -287,13 +291,12 @@ export function NavMenu({ user }: { user: User | null }) {
               </Link>
             </>
           )}
-          {/*<ModeToggle />*/}
           <DarkModeToggle />
         </div>
       </NavigationMenuList>
     </NavigationMenu>
   );
-}
+};
 
 function ListItem({
   title,
@@ -314,3 +317,5 @@ function ListItem({
     </li>
   );
 }
+
+export default React.memo(NavMenu);

@@ -1,12 +1,18 @@
 "use client";
 import { Logo } from "./Logo";
 import { NavMenu } from "./NavMenu";
-import { NavigationSheet } from "./NavigationSheet";
+import NavigationSheet from "./NavigationSheet";
 import React from "react";
 import { User } from "@/app/types/authTypes";
 import Link from "next/link";
 
-export default function Navbar({ user }: { user: User | null }) {
+interface NavbarProps {
+  user: User | null;
+}
+
+const Navbar = React.memo<NavbarProps>(({ user }) => {
+  console.count("Navbar Rendered");
+
   return (
     <div className="relative">
       <nav className="h-16 bg-background border-b shadow-sm text-foreground">
@@ -30,4 +36,8 @@ export default function Navbar({ user }: { user: User | null }) {
       </nav>
     </div>
   );
-}
+});
+
+Navbar.displayName = "Navbar";
+
+export default Navbar;

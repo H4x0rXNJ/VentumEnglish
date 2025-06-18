@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 export function FacebookIcon() {
   return (
@@ -58,6 +58,12 @@ type RepeatIconProps = {
 };
 
 export function RepeatIcon({ count, onClick }: RepeatIconProps) {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
     <div
       className="relative cursor-pointer hover:scale-110 transition-transform duration-200"
@@ -79,11 +85,9 @@ export function RepeatIcon({ count, onClick }: RepeatIconProps) {
         <polyline points="7 23 2 20 6 14" />
         <path d="M21 14v2a4 4 0 0 1-4 4H3" />
       </svg>
-      {count && count > 0 && (
-        <span className="absolute -top-1 -right-1 bg-black text-white text-xs rounded-full w-4 h-4 flex items-center justify-center font-medium">
-          {count}
-        </span>
-      )}
+      <span className="absolute -top-1 -right-1 bg-black text-white text-xs rounded-full w-4 h-4 flex items-center justify-center font-medium">
+        {mounted ? count : 0}
+      </span>
     </div>
   );
 }

@@ -1,6 +1,8 @@
 "use client";
+
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
+import { useCallback, useMemo } from "react";
 
 type UseLogoutRequestOptions = {
   redirectTo?: string;
@@ -8,31 +10,32 @@ type UseLogoutRequestOptions = {
   authType?: string;
 };
 
-export function useLogoutRequest({
-  redirectTo,
-  shouldRefresh = true,
-  authType,
-}: UseLogoutRequestOptions = {}) {
+export function useLogoutRequest(options: UseLogoutRequestOptions = {}) {
+  const { redirectTo, shouldRefresh = true, authType } = options;
   const router = useRouter();
 
-  const handleLogout = async () => {
-    try {
-      console.log(authType);
-      if (authType === "DATABASE") {
-        await fetch("/api/auth/logout", { method: "POST" });
-      } else {
-        await signOut({ redirect: false });
-      }
+  const memoizedOptions = useMemo(
+    () => ({
+      redirectTo,
+      shouldRefresh,
+      authType,
+    }),
+    [redirectTo, shouldRefresh, authType],
+  );
 
-      if (redirectTo) {
-        router.push(redirectTo);
-      } else if (shouldRefresh) {
-        router.refresh();
-      }
-    } catch (err) {
-      console.error("Logout failed:", err);
+  const handleLogout = useCallback(async () => {
+    if (memoizedOptions.authType === "DATABASE") {
+      await fetch("/api/auth/logout", { method: "POST" });
+    } else {
+      await signOut({ redirect: false });
     }
-  };
 
-  return { handleLogout };
+    if (memoizedOptions.redirectTo) {
+      router.push(memoizedOptions.redirectTo);
+    } else if (memoizedOptions.shouldRefresh) {
+      router.refresh();
+    }
+  }, [memoizedOptions, router]);
+
+  return useMemo(() => ({ handleLogout }), [handleLogout]);
 }

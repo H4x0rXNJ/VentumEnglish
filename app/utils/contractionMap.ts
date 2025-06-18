@@ -1,0 +1,81 @@
+const contractionsMap: Record<string, string> = {
+  "i'm": "i am",
+  im: "i am",
+  "i've": "i have",
+  ive: "i have",
+  "i'll": "i will",
+  ill: "i will",
+  "i'd": "i would",
+  id: "i would",
+  "you're": "you are",
+  youre: "you are",
+  "you've": "you have",
+  youve: "you have",
+  "you'll": "you will",
+  youll: "you will",
+  "you'd": "you would",
+  youd: "you would",
+  "he's": "he is",
+  hes: "he is",
+  "she's": "she is",
+  shes: "she is",
+  "it's": "it is",
+  its: "it is",
+  "that's": "that is",
+  thats: "that is",
+  "what's": "what is",
+  whats: "what is",
+  "who's": "who is",
+  whos: "who is",
+  "where's": "where is",
+  wheres: "where is",
+  "there's": "there is",
+  theres: "there is",
+  "they're": "they are",
+  theyre: "they are",
+  "they've": "they have",
+  theyve: "they have",
+  "we're": "we are",
+  were: "we are",
+  "we've": "we have",
+  weve: "we have",
+  "we'll": "we will",
+  well: "we will",
+  "can't": "cannot",
+  cant: "cannot",
+  "won't": "will not",
+  wont: "will not",
+  "don't": "do not",
+  dont: "do not",
+  "doesn't": "does not",
+  doesnt: "does not",
+  "didn't": "did not",
+  didnt: "did not",
+  "shouldn't": "should not",
+  shouldnt: "should not",
+  "wouldn't": "would not",
+  wouldnt: "would not",
+  "couldn't": "could not",
+  couldnt: "could not",
+  "isn't": "is not",
+  isnt: "is not",
+  "aren't": "are not",
+  arent: "are not",
+  "wasn't": "was not",
+  wasnt: "was not",
+  "weren't": "were not",
+  werent: "were not",
+};
+
+export function normalizeText(input: string): string {
+  let text = input.toLowerCase().trim();
+
+  Object.entries(contractionsMap).forEach(([contraction, expanded]) => {
+    const pattern = new RegExp(`\\b${contraction}\\b`, "g");
+    text = text.replace(pattern, expanded);
+  });
+
+  text = text.replace(/[.,?!'"“”]/g, "");
+
+  return text;
+}

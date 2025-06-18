@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { seekBackward, seekForward } from "../utils/seekHelpers";
 
-const handleCommandKey = (audio: HTMLAudioElement) => {
-  audio.currentTime = 0;
+const handleOptionKey = (audio: HTMLAudioElement, segmentStartTime: number) => {
+  audio.currentTime = segmentStartTime;
 
   if (audio.paused || audio.ended || audio.readyState < 3) {
     audio.play().catch((err) => {
@@ -19,14 +19,18 @@ const handleArrowKeys = (e: KeyboardEvent, audio: HTMLAudioElement) => {
   }
 };
 
-export const useKeyboardSeek = (getVideo: () => HTMLAudioElement | null) => {
+export const useKeyboardSeek = (
+  getAudio: () => HTMLAudioElement | null,
+  getCurrentSegmentStart: () => number,
+) => {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      const audio = getVideo();
+      const audio = getAudio();
       if (!audio) return;
 
       if (e.key === "Alt") {
-        handleCommandKey(audio);
+        const startTime = getCurrentSegmentStart();
+        handleOptionKey(audio, startTime);
       } else {
         handleArrowKeys(e, audio);
       }
@@ -34,5 +38,5 @@ export const useKeyboardSeek = (getVideo: () => HTMLAudioElement | null) => {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [getVideo]);
+  }, [getAudio, getCurrentSegmentStart]);
 };
