@@ -38,6 +38,7 @@ export const useAudioPlayer = (segments?: Segment[]) => {
   const isInitializedRef = useRef(false);
 
   const isTogglingRef = useRef(false);
+  const stopTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const THROTTLE_INTERVAL = 100;
 
@@ -48,13 +49,16 @@ export const useAudioPlayer = (segments?: Segment[]) => {
       clearTimeout(timeoutRef.current);
       timeoutRef.current = null;
     }
+    if (stopTimeoutRef.current) {
+      clearTimeout(stopTimeoutRef.current);
+      stopTimeoutRef.current = null;
+    }
   }, []);
 
   useEffect(() => {
     setSegmentRepeatPlayCount(0);
   }, [currentSegmentIndex]);
 
-  // Stable reference cho playCurrentSegment với error handling
   const playCurrentSegment = useCallback(() => {
     const audio = audioRef.current;
     if (!audio || !memoizedSegments || !memoizedSegments[currentSegmentIndex])
@@ -67,6 +71,19 @@ export const useAudioPlayer = (segments?: Segment[]) => {
       .play()
       .then(() => {
         setIsPlaying(true);
+
+        // Schedule stop với timeout để đảm bảo dừng chính xác
+        const segmentDuration =
+          (currentSegment.end - currentSegment.start) * 1000;
+        const stopBuffer = 50; // 50ms buffer để dừng sớm hơn
+
+        stopTimeoutRef.current = setTimeout(() => {
+          if (audio && !audio.paused) {
+            audio.pause();
+            audio.currentTime = currentSegment.end;
+            setIsPlaying(false);
+          }
+        }, segmentDuration - stopBuffer);
       })
       .catch((error) => {
         console.warn("Playback failed:", error);
@@ -74,18 +91,12 @@ export const useAudioPlayer = (segments?: Segment[]) => {
       });
   }, [memoizedSegments, currentSegmentIndex]);
 
-  // Previous segment function
-  const previousSegment = useCallback(() => {
-    if (currentSegmentIndex > 0) {
-      setCurrentSegmentIndex((prev) => prev - 1);
-    }
-  }, [currentSegmentIndex]);
-
   // Replay function
   const handleReplay = useCallback(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
+    clearSegmentTimeout();
     audio.pause();
     setIsPlaying(false);
 
@@ -103,20 +114,22 @@ export const useAudioPlayer = (segments?: Segment[]) => {
             setIsPlaying(false);
           });
 
-        const timeout = setTimeout(
-          () => {
-            audio.pause();
-            setIsPlaying(false);
-          },
-          (currentSegment.end - currentSegment.start) * 1000,
-        );
+        const segmentDuration =
+          (currentSegment.end - currentSegment.start) * 1000;
+        const stopBuffer = 50;
 
-        return () => clearTimeout(timeout);
+        stopTimeoutRef.current = setTimeout(() => {
+          if (audio && !audio.paused) {
+            audio.pause();
+            audio.currentTime = currentSegment.end;
+            setIsPlaying(false);
+          }
+        }, segmentDuration - stopBuffer);
       } else {
         replayAudio(audio, setIsPlaying, setIsRepeating, setCurrentPlayCount);
       }
     }, 100);
-  }, [memoizedSegments, currentSegmentIndex]);
+  }, [memoizedSegments, currentSegmentIndex, clearSegmentTimeout]);
 
   // Toggle play/pause
   const handleTogglePlay = useCallback(() => {
@@ -124,6 +137,7 @@ export const useAudioPlayer = (segments?: Segment[]) => {
     if (!audio) return;
 
     if (isPlaying) {
+      clearSegmentTimeout();
       audio.pause();
       setIsPlaying(false);
     } else {
@@ -133,7 +147,7 @@ export const useAudioPlayer = (segments?: Segment[]) => {
         startPlayback(audio, setIsPlaying, setIsRepeating, setCurrentPlayCount);
       }
     }
-  }, [isPlaying, memoizedSegments, playCurrentSegment]);
+  }, [isPlaying, memoizedSegments, playCurrentSegment, clearSegmentTimeout]);
 
   // Audio event handlers
   const handleLoadedMetadata = useCallback(() => {
@@ -179,6 +193,7 @@ export const useAudioPlayer = (segments?: Segment[]) => {
       setProgress(calculateProgress(currentTime, audio.duration));
     }
   };
+
   const checkSegmentEndAndRepeat = (
     audio: HTMLAudioElement,
     currentTime: number,
@@ -187,10 +202,13 @@ export const useAudioPlayer = (segments?: Segment[]) => {
     if (!segment) return;
 
     const { start, end } = segment;
+    const BUFFER = 0.02; // Tăng từ 0.02 lên 0.15 giây
 
-    if (currentTime >= end) {
+    if (currentTime >= end - BUFFER) {
+      // Dừng ngay lập tức
       audio.pause();
       setIsPlaying(false);
+      clearSegmentTimeout();
 
       if (segmentRepeatPlayCount + 1 < repeatCount) {
         replaySegment(audio, start);
@@ -208,9 +226,24 @@ export const useAudioPlayer = (segments?: Segment[]) => {
         .then(() => {
           setIsPlaying(true);
           setSegmentRepeatPlayCount((prev) => prev + 1);
+
+          // Schedule stop cho lần replay
+          const segment = memoizedSegments?.[currentSegmentIndex];
+          if (segment) {
+            const segmentDuration = (segment.end - segment.start) * 1000;
+            const stopBuffer = 50;
+
+            stopTimeoutRef.current = setTimeout(() => {
+              if (audio && !audio.paused) {
+                audio.pause();
+                audio.currentTime = segment.end;
+                setIsPlaying(false);
+              }
+            }, segmentDuration - stopBuffer);
+          }
         })
         .catch((err) => console.warn("Replay error:", err));
-    }, 300);
+    }, 200); // Giảm delay từ 300ms xuống 200ms
   };
 
   const shouldThrottleUpdate = () => {
@@ -227,6 +260,7 @@ export const useAudioPlayer = (segments?: Segment[]) => {
     if (!audio) return;
 
     setIsPlaying(false);
+    clearSegmentTimeout();
 
     if (memoizedSegments && memoizedSegments[currentSegmentIndex]) {
       return;
@@ -243,6 +277,7 @@ export const useAudioPlayer = (segments?: Segment[]) => {
     isRepeating,
     currentPlayCount,
     repeatCount,
+    clearSegmentTimeout,
   ]);
 
   // Progress handlers
@@ -260,6 +295,7 @@ export const useAudioPlayer = (segments?: Segment[]) => {
     },
     [isPlaying],
   );
+
   const handleToggleMute = useCallback(() => {
     if (isTogglingRef.current) return;
 
@@ -305,6 +341,7 @@ export const useAudioPlayer = (segments?: Segment[]) => {
       events.forEach(([event, handler]) => {
         audio.removeEventListener(event, handler);
       });
+      clearSegmentTimeout();
     };
   }, [
     handleLoadedMetadata,
@@ -312,6 +349,7 @@ export const useAudioPlayer = (segments?: Segment[]) => {
     handleTimeUpdate,
     handleError,
     handleEnded,
+    clearSegmentTimeout,
   ]);
 
   // Volume initialization - chỉ chạy 1 lần
@@ -353,7 +391,14 @@ export const useAudioPlayer = (segments?: Segment[]) => {
     return () => {
       clearSegmentTimeout();
     };
-  }, [memoizedSegments]); // Chỉ depend vào memoizedSegments
+  }, [memoizedSegments, clearSegmentTimeout]);
+
+  // Cleanup when component unmounts
+  useEffect(() => {
+    return () => {
+      clearSegmentTimeout();
+    };
+  }, [clearSegmentTimeout]);
 
   // Stable return object
   return useMemo(
@@ -371,10 +416,8 @@ export const useAudioPlayer = (segments?: Segment[]) => {
       audioRef,
       isVolumeReady,
       currentSegmentIndex,
-      // Functions
       replay: handleReplay,
       togglePlay: handleTogglePlay,
-      previousSegment,
       onProgressChange: handleProgressChange,
       onProgressCommit: handleProgressCommit,
       toggleMute: handleToggleMute,
@@ -398,7 +441,6 @@ export const useAudioPlayer = (segments?: Segment[]) => {
       currentSegmentIndex,
       handleReplay,
       handleTogglePlay,
-      previousSegment,
       handleProgressChange,
       handleProgressCommit,
       handleToggleMute,

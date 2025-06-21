@@ -12,13 +12,23 @@ import { RepeatIcon } from "@/app/components/icons/Icon";
 import { formatTime } from "@/app/(home)/lessons/utils/formatTime";
 import { useAudioPlayer } from "../hook/useAudioPlayer";
 import { useKeyboardSeek } from "../hook/useKeyboardSeek";
-import React, { useCallback, useMemo, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { FiCheck } from "react-icons/fi";
-import { PiSealWarningFill } from "react-icons/pi";
 import { LuVolumeOff } from "react-icons/lu";
 import { cn } from "@/lib/utils";
+import {
+  cleanText,
+  handlePasteEvent,
+} from "@/app/(home)/lessons/utils/handlePaste";
+import { normalizeText } from "@/app/(home)/lessons/utils/contractionsMap";
 
 type SegmentsProps = {
   title: string;
@@ -39,13 +49,18 @@ export default function LessonClient({
   const [showMaskedAnswer, setShowMaskedAnswer] = useState(false);
   const [revealedWords, setRevealedWords] = useState(1);
   const [checkResult, setCheckResult] = useState<"" | "correct" | "wrong">("");
+  const [isSkipped, setIsSkipped] = useState(false);
+  const [actualCurrentSegment, setActualCurrentSegment] = useState(0);
   const [correctSegments, setCorrectSegments] = useState<Set<number>>(
     new Set(),
   );
-
-  const [isSkipped, setIsSkipped] = useState(false);
+  const [skippedSegments, setSkippedSegments] = useState<Set<number>>(
+    new Set(),
+  );
 
   const realSegments = useMemo(() => segments.segments, [segments.segments]);
+
+  const inputRef = useRef<HTMLTextAreaElement>(null);
 
   const {
     isPlaying,
@@ -60,7 +75,6 @@ export default function LessonClient({
     isVolumeReady,
     currentSegmentIndex,
     togglePlay,
-    previousSegment,
     setIsPlaying,
     onProgressChange,
     onProgressCommit,
@@ -73,21 +87,17 @@ export default function LessonClient({
   useKeyboardSeek(
     () => audioRef.current,
     () => realSegments[currentSegmentIndex]?.start ?? 0,
+    setIsPlaying,
   );
 
-  // Memoize current segment text
   const currentSegmentText = useMemo(
     () => realSegments[currentSegmentIndex]?.text || "",
     [realSegments, currentSegmentIndex],
   );
+  const [pendingCursor, setPendingCursor] = useState<number | null>(null);
 
   const isCurrentSegmentCorrect = correctSegments.has(currentSegmentIndex);
-
-  const normalizeText = useCallback(
-    (text: string) => text.trim().toLowerCase(),
-    [],
-  );
-
+  const isLastSegment = currentSegmentIndex >= realSegments.length - 1;
   const handleCheckAnswer = useCallback(() => {
     const normalizedInput = normalizeText(useInput);
     const normalizedExpected = normalizeText(currentSegmentText);
@@ -100,53 +110,111 @@ export default function LessonClient({
     }
   }, [useInput, currentSegmentText, normalizeText, currentSegmentIndex]);
 
+  useEffect(() => {
+    if (pendingCursor !== null && inputRef.current) {
+      requestAnimationFrame(() => {
+        inputRef.current?.setSelectionRange(pendingCursor, pendingCursor);
+        inputRef.current?.focus();
+        setPendingCursor(null);
+      });
+    }
+  }, [pendingCursor]);
+
   const handleSkipSegment = () => {
     if (currentSegmentIndex < realSegments.length && audioRef.current) {
-      // Pause audio
       audioRef.current.pause();
       setIsPlaying(false);
 
-      // Show current segment text
       const currentSegment = realSegments[currentSegmentIndex];
       setUseInput(currentSegment?.text || "");
 
+      setSkippedSegments((prev) => new Set([...prev, currentSegmentIndex]));
+      setActualCurrentSegment(
+        Math.max(actualCurrentSegment, currentSegmentIndex),
+      );
+
       setCheckResult("");
       setIsSkipped(true);
-      setShowFullAnswer(false);
-      setShowMaskedAnswer(false);
       setRevealedWords(1);
+    }
+  };
+
+  const previousSegment = () => {
+    if (currentSegmentIndex > 0 && audioRef.current) {
+      const newSegment = currentSegmentIndex - 1;
+      setCurrentSegmentIndex(newSegment);
+      setCheckResult("");
+      setIsSkipped(true);
+      setRevealedWords(1);
+      audioRef.current.pause();
+      audioRef.current.currentTime = realSegments[newSegment].start;
+      setTimeout(() => {
+        const segment = realSegments[newSegment];
+        setUseInput(segment?.text || "");
+      }, 0);
     }
   };
 
   const nextSegment = useCallback(() => {
     if (currentSegmentIndex < realSegments.length - 1) {
-      setCurrentSegmentIndex((prev) => prev + 1);
+      const newSegmentIndex = currentSegmentIndex + 1;
+      setCurrentSegmentIndex(newSegmentIndex);
 
-      // Reset UI state
-      setUseInput("");
-      setCheckResult("");
-      setShowFullAnswer(false);
-      setShowMaskedAnswer(false);
-      setRevealedWords(1);
-      setIsSkipped(false);
+      const segment = realSegments[newSegmentIndex];
 
-      setTimeout(() => {
-        const audio = audioRef.current;
-        if (audio && realSegments[currentSegmentIndex + 1]) {
-          audio.currentTime = realSegments[currentSegmentIndex + 1].start;
-          audio.play().then(() => setIsPlaying(true));
-        }
-      }, 100);
+      const isSegmentSkipped =
+        skippedSegments.has(newSegmentIndex) ||
+        correctSegments.has(newSegmentIndex);
+
+      if (isSegmentSkipped) {
+        setCheckResult(correctSegments.has(newSegmentIndex) ? "correct" : "");
+        setRevealedWords(segment?.text?.split(" ").length || 1);
+        setIsSkipped(skippedSegments.has(newSegmentIndex));
+
+        setTimeout(() => {
+          const audio = audioRef.current;
+          if (audio && segment) {
+            audio.currentTime = segment.start;
+            audio.pause();
+            setIsPlaying(false);
+          }
+        }, 100);
+        setTimeout(() => {
+          const segment = realSegments[newSegmentIndex];
+          setUseInput(segment?.text || "");
+        }, 0);
+      } else {
+        setUseInput("");
+        setCheckResult("");
+        setRevealedWords(1);
+        setIsSkipped(false);
+
+        setTimeout(() => {
+          const audio = audioRef.current;
+          if (audio && segment) {
+            audio.currentTime = segment.start;
+            audio.play().then(() => setIsPlaying(true));
+          }
+        }, 100);
+      }
     }
-  }, [currentSegmentIndex, realSegments, setIsPlaying]);
+  }, [
+    currentSegmentIndex,
+    skippedSegments,
+    correctSegments,
+    realSegments,
+    setIsPlaying,
+  ]);
 
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
       if (e.key === "Enter") {
         e.preventDefault();
-        if (!isCurrentSegmentCorrect) {
-          handleCheckAnswer();
+        if (isCurrentSegmentCorrect || isSkipped) {
+          nextSegment();
+          return;
         }
+        handleCheckAnswer();
       }
     },
     [handleCheckAnswer, isCurrentSegmentCorrect],
@@ -162,13 +230,53 @@ export default function LessonClient({
     [isCurrentSegmentCorrect],
   );
 
+  const handlePaste = (event: React.ClipboardEvent<HTMLTextAreaElement>) => {
+    handlePasteEvent(event, useInput, setUseInput);
+  };
+
   const handleShowMaskedChange = useCallback((checked: boolean) => {
     setShowMaskedAnswer(checked);
     if (checked) {
       setShowFullAnswer(false);
+      setRevealedWords(1);
     }
-    setRevealedWords(1);
   }, []);
+
+  const checkMaskedProgress = useCallback(() => {
+    if (!showMaskedAnswer) return;
+
+    const words = currentSegmentText.split(" ");
+    const normalizedInput = normalizeText(useInput.trim());
+
+    let matchedWords = 0;
+    for (let i = 0; i < words.length; i++) {
+      const partialText = words.slice(0, i + 1).join(" ");
+      const normalizedPartial = normalizeText(partialText);
+
+      if (normalizedInput === normalizedPartial) {
+        matchedWords = i + 1;
+      }
+    }
+
+    if (matchedWords > 0) {
+      setRevealedWords(Math.min(matchedWords + 1, words.length));
+    } else {
+      let partialMatched = 0;
+
+      for (let i = words.length - 1; i >= 1; i--) {
+        const partial = words.slice(0, i).join(" ");
+        if (normalizeText(useInput).startsWith(normalizeText(partial))) {
+          partialMatched = i;
+          break;
+        }
+      }
+      if (partialMatched > 0) {
+        setRevealedWords(Math.min(partialMatched + 1, words.length));
+      } else {
+        setRevealedWords(2);
+      }
+    }
+  }, [useInput, currentSegmentText, showMaskedAnswer, normalizeText]);
 
   const handleShowFullChange = useCallback((checked: boolean) => {
     setShowFullAnswer(checked);
@@ -196,20 +304,6 @@ export default function LessonClient({
       .join(" ");
   }, [currentSegmentText, revealedWords]);
 
-  const checkMaskedProgress = useCallback(() => {
-    const words = currentSegmentText.split(" ");
-    const revealedPortion = words.slice(0, revealedWords).join(" ");
-    const normalizedInput = normalizeText(useInput);
-    const normalizedRevealed = normalizeText(revealedPortion);
-
-    if (
-      normalizedInput === normalizedRevealed &&
-      revealedWords < words.length
-    ) {
-      setRevealedWords((prev) => prev + 1);
-    }
-  }, [useInput, currentSegmentText, revealedWords, normalizeText]);
-
   React.useEffect(() => {
     if (showMaskedAnswer && checkResult === "wrong") {
       checkMaskedProgress();
@@ -227,9 +321,6 @@ export default function LessonClient({
     } else {
       setUseInput("");
     }
-    setShowFullAnswer(false);
-    setShowMaskedAnswer(false);
-    setRevealedWords(1);
   }, [currentSegmentIndex, correctSegments, currentSegmentText]);
 
   return (
@@ -251,7 +342,7 @@ export default function LessonClient({
           </Button>
         </CardHeader>
 
-        <CardContent className="pt-4 sm:pt-6 min-h-[400px] sm:h-[400px] overflow-hidden relative p-4 sm:p-6">
+        <CardContent className="pt-4 sm:pt-6 min-h-[520px] sm:h-[400px] overflow-hidden relative p-4 sm:p-6">
           <div className="grid gap-4 sm:gap-6">
             <div className="flex flex-col lg:flex-row gap-4 items-stretch lg:items-center justify-between">
               <div className="rounded-lg border p-3 sm:p-4 w-full lg:max-w-md bg-dark shadow-sm space-y-3 sm:space-y-4">
@@ -307,7 +398,7 @@ export default function LessonClient({
                       min={0}
                       step={1}
                       onValueChange={handleVolumeChange}
-                      className="h-3 flex-1 max-w-[120px] sm:max-w-[160px] [&_[data-slot=slider-thumb]]:size-3 [&_[data-slot=slider-thumb]]:bg-black dark:[&_[data-slot=slider-thumb]]:bg-white [&_[data-slot=slider-track]]:h-0.5"
+                      className="h-3 flex-1 sm:max-w-[80px] [&_[data-slot=slider-thumb]]:size-3 [&_[data-slot=slider-thumb]]:bg-black dark:[&_[data-slot=slider-thumb]]:bg-white [&_[data-slot=slider-track]]:h-0.5"
                     />
                   ) : (
                     <Skeleton className="h-0.5 w-20 sm:w-30 rounded-md flex-1 max-w-[120px] sm:max-w-[160px]" />
@@ -316,25 +407,46 @@ export default function LessonClient({
               </div>
 
               <div className="flex gap-2 w-full lg:w-auto">
-                {!isSkipped ? (
+                {isSkipped || checkResult === "correct" ? (
+                  <Button
+                    onClick={previousSegment}
+                    variant="outline"
+                    className="cursor-pointer flex items-center gap-2 flex-1 sm:flex-none justify-center min-w-[100px]"
+                    size="lg"
+                    disabled={currentSegmentIndex === 0}
+                  >
+                    Preview
+                  </Button>
+                ) : (
+                  <Button
+                    onClick={handleCheckAnswer}
+                    variant="outline"
+                    className="cursor-pointer flex items-center gap-2 flex-1 sm:flex-none justify-center min-w-[100px]"
+                    size="lg"
+                  >
+                    Check
+                  </Button>
+                )}
+
+                {isSkipped || checkResult === "correct" ? (
+                  <Button
+                    onClick={nextSegment}
+                    variant="outline"
+                    className="cursor-pointer flex items-center gap-2 flex-1 sm:flex-none justify-center min-w-[100px]"
+                    size="lg"
+                    disabled={isLoading || isLastSegment}
+                  >
+                    Next
+                  </Button>
+                ) : (
                   <Button
                     onClick={handleSkipSegment}
                     variant="outline"
-                    className="cursor-pointer flex items-center gap-2 flex-1 sm:flex-none justify-center"
+                    className="cursor-pointer flex items-center gap-2 flex-1 sm:flex-none justify-center min-w-[100px]"
                     size="lg"
                     disabled={isLoading}
                   >
                     Skip
-                  </Button>
-                ) : (
-                  <Button
-                    onClick={nextSegment}
-                    variant="outline"
-                    className="cursor-pointer flex items-center gap-2 flex-1 sm:flex-none justify-center"
-                    size="lg"
-                    disabled={isLoading}
-                  >
-                    Next
                   </Button>
                 )}
                 <Button
@@ -355,7 +467,7 @@ export default function LessonClient({
                       id="showMasked"
                       checked={showMaskedAnswer}
                       onCheckedChange={handleShowMaskedChange}
-                      disabled={checkResult !== "wrong"}
+                      disabled={isSkipped || checkResult === "correct"}
                     />
                     <Label htmlFor="showMasked" className="text-sm">
                       Show masked answer
@@ -367,7 +479,7 @@ export default function LessonClient({
                       id="showFull"
                       checked={showFullAnswer}
                       onCheckedChange={handleShowFullChange}
-                      disabled={checkResult !== "wrong"}
+                      disabled={isSkipped || checkResult === "correct"}
                     />
                     <Label htmlFor="showFull" className="text-sm">
                       Show full answer
@@ -375,11 +487,8 @@ export default function LessonClient({
                   </div>
                 </div>
                 <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto justify-start sm:justify-end">
-                  <Badge variant="outline" className="text-xs">
-                    Creator
-                  </Badge>
                   <Badge variant="secondary" className="text-xs">
-                    Room: XXXX
+                    Level: C1
                   </Badge>
                   <Badge
                     variant="outline"
@@ -394,15 +503,17 @@ export default function LessonClient({
                 <Textarea
                   placeholder="Type what you hear..."
                   className={cn(
-                    "w-full h-20 sm:h-25 font-semibold p-3 sm:p-4 text-sm sm:text-base",
+                    "w-full h-20 sm:h-25 font-semibold p-3 sm:p-4 dark:text-white text-sm sm:text-base",
                     "rounded-lg border shadow-sm transition-all duration-200",
                     "whitespace-pre-wrap resize-none",
                     isCurrentSegmentCorrect || isSkipped
                       ? "bg-white/60 text-gray-500 cursor-not-allowed"
                       : "bg-white text-black",
                   )}
-                  value={useInput.trimStart().toLowerCase()}
+                  ref={inputRef}
+                  value={useInput}
                   onChange={handleInputChange}
+                  onPaste={handlePaste}
                   readOnly={isCurrentSegmentCorrect || isSkipped}
                   onKeyDown={handleKeyDown}
                 />
@@ -411,20 +522,17 @@ export default function LessonClient({
                   <p
                     className={`flex items-center gap-2 font-medium text-sm sm:text-base ${
                       checkResult === "correct"
-                        ? "text-blue-400"
+                        ? "text-green-600"
                         : "text-pink-600"
                     }`}
                   >
                     {checkResult === "correct" ? (
                       <>
                         <FiCheck className="w-4 h-4 sm:w-5 sm:h-5" />
-                        Great job!
+                        You nailed it!
                       </>
                     ) : (
-                      <>
-                        <PiSealWarningFill className="w-4 h-4 sm:w-5 sm:h-5" />
-                        That&#39;s not correct.
-                      </>
+                      <>🤔 Hmm, that&#39;s not correct!</>
                     )}
                   </p>
                 )}
@@ -442,29 +550,7 @@ export default function LessonClient({
                 )}
 
                 <div className="flex items-center justify-between min-h-[60px] sm:min-h-[72px] transition-all duration-300">
-                  <div className="flex gap-2">
-                    {checkResult !== "wrong" && (
-                      <Button
-                        onClick={handleCheckAnswer}
-                        variant="default"
-                        className="flex items-center gap-2"
-                        size="lg"
-                      >
-                        Check
-                      </Button>
-                    )}
-                    {/*{checkResult !== "correct" && (*/}
-                    {/*  <Button*/}
-                    {/*    onClick={previousSegment}*/}
-                    {/*    variant="default"*/}
-                    {/*    className="flex items-center gap-2"*/}
-                    {/*    size="lg"*/}
-                    {/*    disabled={currentSegmentIndex === 0}*/}
-                    {/*  >*/}
-                    {/*    Previous*/}
-                    {/*  </Button>*/}
-                    {/*)}*/}
-                  </div>
+                  <div className="flex gap-2"></div>
                 </div>
               </div>
             </div>

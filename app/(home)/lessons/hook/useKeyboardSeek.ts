@@ -1,27 +1,28 @@
 import { useEffect } from "react";
-import { seekBackward, seekForward } from "../utils/seekHelpers";
 
-const handleOptionKey = (audio: HTMLAudioElement, segmentStartTime: number) => {
+const handleOptionKey = (
+  audio: HTMLAudioElement,
+  segmentStartTime: number,
+  setIsPlaying: (val: boolean) => void,
+) => {
   audio.currentTime = segmentStartTime;
 
   if (audio.paused || audio.ended || audio.readyState < 3) {
-    audio.play().catch((err) => {
-      console.warn("Play error:", err);
-    });
-  }
-};
-
-const handleArrowKeys = (e: KeyboardEvent, audio: HTMLAudioElement) => {
-  if (e.key === "ArrowRight") {
-    seekForward(audio);
-  } else if (e.key === "ArrowLeft") {
-    seekBackward(audio);
+    audio
+      .play()
+      .then(() => {
+        setIsPlaying(true);
+      })
+      .catch((err) => {
+        console.warn("Play error:", err);
+      });
   }
 };
 
 export const useKeyboardSeek = (
   getAudio: () => HTMLAudioElement | null,
   getCurrentSegmentStart: () => number,
+  setIsPlaying: (val: boolean) => void,
 ) => {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -30,9 +31,7 @@ export const useKeyboardSeek = (
 
       if (e.key === "Alt") {
         const startTime = getCurrentSegmentStart();
-        handleOptionKey(audio, startTime);
-      } else {
-        handleArrowKeys(e, audio);
+        handleOptionKey(audio, startTime, setIsPlaying);
       }
     };
 
